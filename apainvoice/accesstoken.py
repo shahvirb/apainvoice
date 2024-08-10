@@ -20,7 +20,6 @@ class AccessToken:
 
     @token.setter
     def token(self, t) -> None:
-        self._token = t
         with db.get_db() as conn:
             conn["access_token"] = {
                 "token": t,
