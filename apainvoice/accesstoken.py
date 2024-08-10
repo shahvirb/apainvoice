@@ -1,4 +1,3 @@
-from apainvoice import matchstats
 from apainvoice import db
 import datetime
 
