@@ -2,6 +2,7 @@ import json
 import logging
 import requests
 import typing
+from apainvoice import db
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +68,7 @@ class PoolPlayersAPI:
         answer = post_data(None, data)
         return answer[0]["data"]["generateAccessToken"]["accessToken"]
 
-    def get_match_data(self, id: int):
+    def get_match_data(self, id: int) -> typing.Any:
         headers = {
             "Authorization": self.access_token,
         }
@@ -120,6 +121,15 @@ class PersistentDataAPI(PoolPlayersAPI):
     def __init__(self) -> None:
         super().__init__()
 
+    def get_match_data(self, id: int) -> typing.Any:
+        dbc = db.ReaderWriter()
+        match_data = dbc.read("match_data")
+        if id not in match_data:
+            data = db.create_data_dict(super().get_match_data(id))
+            match_data[id] = data
+            dbc.write("match_data", match_data)
+        return match_data[id]["data"]
+
 
 def short_str(x: str) -> str:
     return x[:3] + x[-3:]
@@ -131,11 +141,11 @@ if __name__ == "__main__":
     # Token re-use/refresh test
     # api = PoolPlayersAPI()
     api = PersistentDataAPI()
-    for n in range(8):
-        players = api.fetch_players(42940044)
-        print(f"n={n}, token={short_str(api.access_token)}, len_players={len(players)}")
-        api.access_token = api.refresh_access_token()
+    # for n in range(8):
+    #     players = api.fetch_players(42940044)
+    #     print(f"n={n}, token={short_str(api.access_token)}, len_players={len(players)}")
+    #     api.access_token = api.refresh_access_token()
 
     # api = CachingAPI()
     # api.fetch_past_matches()
-    # print(api.fetch_players(42940044))
+    print(api.fetch_players(42940044))
