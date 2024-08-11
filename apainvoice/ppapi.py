@@ -117,7 +117,7 @@ class PoolPlayersAPI:
         return match_ids
 
 
-class CachingAPI(PoolPlayersAPI):
+class PersistentDbApi(PoolPlayersAPI):
     def __init__(self) -> None:
         token = accesstoken.AccessToken(DEFAULT_ACCESS_TOKEN)
         self.access_token = self.refresh_access_token(token.token)
@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
     # Token re-use/refresh test
     # api = PoolPlayersAPI()
-    api = CachingAPI()
+    api = PersistentDbApi()
     for n in range(8):
         players = api.fetch_players(42940044)
         print(f"n={n}, token={short_str(api.access_token)}, len_players={len(players)}")
