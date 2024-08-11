@@ -1,6 +1,8 @@
 import json
 import logging
 import requests
+import typing
+from apainvoice import accesstoken
 
 logger = logging.getLogger(__name__)
 
@@ -8,18 +10,30 @@ GQLURL = "https://gql.poolplayers.com/graphql"
 DEFAULT_ACCESS_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjVyTjd2TDlFOUlwWUlnTjJsQ0JMdFd0TnhBZXRYaHkxNUJwNzl4a18wOVEifQ.eyJhcHBsaWNhdGlvblJlZnJlc2hUb2tlbklkIjoiNDY5NDM1NiIsImlhdCI6MTcyMjQ2Mzc1MywiaXNzIjoiQVBBIiwic3ViIjoiMjI3ODQ5MyJ9.POx2fQMK1ZkGK87aSjZxCJ45UVg01r-IvtzLnahNCXu4SzKEMfgX7cRnUiLqQhbmsq6-kiYclJBfZDcDhc6EMrspR30Y4CgqyJoSPW1_sSDSi7xUs4UP6Rjo4mqVdmAgc25qHUjDGDIzIikTjsQFCr6YzEpt600G4Vtskl9ZyRPYoi9h_CM8i_alXywepK9L4YALIq2pw08ePZSy5dMVqeVYOqkXBByQBfgV-UAnbA5LTrwbtVqMrfQ5RfyfwaOBnuwh2tKxr-wBa2Nb_WoFK3cYrSmkEMxUSwk-ps0kyKPG2qYmTIIc5FaodO4vXAoOG27FcsNTnUj4cGR6eebRFA"
 
 
-def json_to_dict(response):
+class ResponseOKWithErrorsData(Exception):
+    "Raised if the response dictionary has a key named 'errors'"
+    pass
+
+
+def json_to_dict(response: requests.Response) -> typing.Any:
     return json.loads(response.text)
 
 
-def post_data(headers: dict | None, json_data: dict):
+def post_data(headers: dict | None, json_data: dict) -> typing.Any:
     default_header = {
         "Content-Type": "application/json",
         "Origin": "https://league.poolplayers.com",
     }
     merged_headers = default_header | (headers if headers else {})
     response = requests.post(GQLURL, headers=merged_headers, json=json_data)
-    return json_to_dict(response)
+    assert response.status_code == 200
+
+    resp_dict = json_to_dict(response)
+    for rd in resp_dict:
+        if "errors" in rd.keys():
+            raise ResponseOKWithErrorsData
+
+    return resp_dict
 
 
 def parse_players(match_results) -> list[str]:
@@ -35,24 +49,24 @@ def parse_players(match_results) -> list[str]:
 
 class PoolPlayersAPI:
     def __init__(self) -> None:
-        self.access_token = None
-        self.refresh_access_token()
+        self.access_token = self.refresh_access_token()
 
     def refresh_access_token(self, refresh_token: str = DEFAULT_ACCESS_TOKEN) -> str:
-        if not self.access_token:
-            self.access_token = DEFAULT_ACCESS_TOKEN
-
+        logger.info("refreshing access token")
         data = [
             {
                 "operationName": "GenerateAccessTokenMutation",
-                "variables": {"refreshToken": self.access_token},
+                "variables": {
+                    "refreshToken": (
+                        refresh_token if refresh_token else DEFAULT_ACCESS_TOKEN
+                    )
+                },
                 "query": "mutation GenerateAccessTokenMutation($refreshToken: String!) {\n  generateAccessToken(refreshToken: $refreshToken) {\n    accessToken\n    __typename\n  }\n}\n",
             }
         ]
 
         answer = post_data(None, data)
-        self.access_token = answer[0]["data"]["generateAccessToken"]["accessToken"]
-        return self.access_token
+        return answer[0]["data"]["generateAccessToken"]["accessToken"]
 
     def get_match_data(self, id: int):
         headers = {
@@ -76,21 +90,6 @@ class PoolPlayersAPI:
         }
 
         data = [
-            # {
-            #     "operationName": "viewerCountryQuery",
-            #     "variables": {},
-            #     "query": "query viewerCountryQuere\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n",
-            # },
-            # {
-            #     "operationName": "ComponentFeatureCheck",
-            #     "variables": {"key": "Search"},
-            #     "query": "query ComponentFeatureCheck($key: String!) {\n  feature(key: $key)\n}\n",
-            # },
-            # {
-            #     "operationName": "LiveStream",
-            #     "variables": {},
-            #     "query": "query LiveStream {\n  liveStream {\n    __typename\n    feeds {\n      __typename\n      ... on YoutubeLive {\n        title\n        description\n        publishTime\n        embed\n        thumbnails {\n          url\n          height\n          width\n          __typename\n        }\n        __typename\n      }\n    }\n  }\n}\n",
-            # },
             {
                 "operationName": "matchesByViewer",
                 "variables": {},
@@ -118,10 +117,28 @@ class PoolPlayersAPI:
         return match_ids
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-    api = PoolPlayersAPI()
-    api.fetch_past_matches()
+class CachingAPI(PoolPlayersAPI):
+    def __init__(self) -> None:
+        token = accesstoken.AccessToken(DEFAULT_ACCESS_TOKEN)
+        self.access_token = self.refresh_access_token(token.token)
+        token.token = self.access_token
 
-    print(api.fetch_players(42940044))
-    # print(fetch_players(42943136))
+
+def short_str(x: str) -> str:
+    return x[:3] + x[-3:]
+
+
+if __name__ == "__main__":
+    # logging.basicConfig(level=logging.DEBUG)
+
+    # Token re-use/refresh test
+    # api = PoolPlayersAPI()
+    api = CachingAPI()
+    for n in range(8):
+        players = api.fetch_players(42940044)
+        print(f"n={n}, token={short_str(api.access_token)}, len_players={len(players)}")
+        api.access_token = api.refresh_access_token()
+
+    # api = CachingAPI()
+    # api.fetch_past_matches()
+    # print(api.fetch_players(42940044))
