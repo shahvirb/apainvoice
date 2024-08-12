@@ -148,4 +148,5 @@ if __name__ == "__main__":
 
     # api = CachingAPI()
     # api.fetch_past_matches()
-    print(api.fetch_players(42940044))
+    players = api.fetch_players(42940044)
+    print(players)
