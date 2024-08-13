@@ -56,6 +56,6 @@ async def html_landing() -> HTMLResponse:
 
 
 if __name__ == "__main__":
-    log_config = uvicorn.config.LOGGING_CONFIG
     logging.basicConfig(level=logging.INFO)
-    uvicorn.run(app, host="0.0.0.0", port=8001, log_config=log_config)
+    log_config = uvicorn.config.LOGGING_CONFIG
+    uvicorn.run("webapp:app", log_config=log_config, host="0.0.0.0", port=8001, reload=True)
