@@ -2,7 +2,7 @@ import json
 import logging
 import requests
 import typing
-from apainvoice import db
+from apainvoice import db, pydmodels
 
 logger = logging.getLogger(__name__)
 
@@ -107,8 +107,11 @@ class PoolPlayersAPI:
     def fetch_past_matches(self) -> list[int]:
         match_ids = []
         matches = self.get_matches()
+        mr = pydmodels.MatchesResponse.model_validate(matches)
+        # TODO shouldn't we also look at matches[1]
         for team in matches[0]["data"]["viewer"]["teams"]:
             for match in team["matches"]:
+                match = pydmodels.Match.model_validate(match)
                 if match["status"] == "COMPLETED":
                     match_ids.append(match["id"])
                     logger.info(
@@ -147,6 +150,6 @@ if __name__ == "__main__":
     #     api.access_token = api.refresh_access_token()
 
     # api = CachingAPI()
-    # api.fetch_past_matches()
+    api.fetch_past_matches()
     players = api.fetch_players(42940044)
     print(players)
