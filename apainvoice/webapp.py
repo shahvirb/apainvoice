@@ -3,31 +3,38 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 app = FastAPI()
 
 
-# # define some users
-# bills = [
-#     pydmodels.PlayerBill(id=1, name="John", amount=8),
-#     pydmodels.PlayerBill(id=2, name="Jack", amount=16),
-# ]
+def generate_bill(
+    api: ppapi.PoolPlayersAPI, mdle=pydmodels.MatchesDateListEntry
+) -> list[AnyComponent]:
+    # bills = invoice.calculate_bills(api, [42940044])
+    return [
+        c.Heading(text=mdle.date, level=2),
+        # c.Table(
+        #     data=bills,
+        #     columns=[
+        #         DisplayLookup(field="name"),
+        #         DisplayLookup(field="amount"),
+        #     ],
+        # ),
+    ]
 
 
 def generate_bills() -> list[AnyComponent]:
     api = ppapi.PersistentDataAPI()
-    bills = invoice.calculate_bills(api, [42940044])
-    
-    return [
-        c.Heading(text="8-13-24", level=2),
-        c.Table(
-            data=bills,
-            columns=[
-                DisplayLookup(field="name"),
-                DisplayLookup(field="amount"),
-            ],
-        ),
-    ]
+    completed = api.fetch_completed_matches()
+    date_list = pydmodels.matches_date_list(completed)
+    components = []
+    for mdle in date_list:
+        components.extend(generate_bill(api, mdle))
+    return components
 
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)

@@ -104,20 +104,12 @@ class PoolPlayersAPI:
         match_data = self.get_match_data(match_id)
         return parse_players(match_data)
 
-    def fetch_past_matches(self) -> list[int]:
-        match_ids = []
+    def fetch_completed_matches(self) -> list[pydmodels.Match]:
         matches = self.get_matches()
         mr = pydmodels.MatchesResponse.model_validate(matches)
-        # TODO shouldn't we also look at matches[1]
-        for team in matches[0]["data"]["viewer"]["teams"]:
-            for match in team["matches"]:
-                match = pydmodels.Match.model_validate(match)
-                if match["status"] == "COMPLETED":
-                    match_ids.append(match["id"])
-                    logger.info(
-                        f"Found past match id={match['id']} @ {match['startTime']}"
-                    )
-        return match_ids
+        completed_matches = mr.completed_matches()
+        logger.info(f'Found {len(completed_matches)} completed matches')
+        return completed_matches
 
 
 class PersistentDataAPI(PoolPlayersAPI):
@@ -139,17 +131,12 @@ def short_str(x: str) -> str:
 
 
 if __name__ == "__main__":
-    # logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG)
 
-    # Token re-use/refresh test
-    # api = PoolPlayersAPI()
     api = PersistentDataAPI()
-    # for n in range(8):
-    #     players = api.fetch_players(42940044)
-    #     print(f"n={n}, token={short_str(api.access_token)}, len_players={len(players)}")
-    #     api.access_token = api.refresh_access_token()
-
-    # api = CachingAPI()
-    api.fetch_past_matches()
-    players = api.fetch_players(42940044)
-    print(players)
+    
+    completed_matches = api.fetch_completed_matches()
+    date_list = pydmodels.matches_date_list(completed_matches)
+    
+    # players = api.fetch_players(42940044)
+    # print(players)
