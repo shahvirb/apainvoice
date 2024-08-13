@@ -14,16 +14,16 @@ app = FastAPI()
 def generate_bill(
     api: ppapi.PoolPlayersAPI, mdle=pydmodels.MatchesDateListEntry
 ) -> list[AnyComponent]:
-    # bills = invoice.calculate_bills(api, [42940044])
+    bills = invoice.calculate_bills(api, [m.id for m in mdle.matches])
     return [
         c.Heading(text=mdle.date, level=2),
-        # c.Table(
-        #     data=bills,
-        #     columns=[
-        #         DisplayLookup(field="name"),
-        #         DisplayLookup(field="amount"),
-        #     ],
-        # ),
+        c.Table(
+            data=bills,
+            columns=[
+                DisplayLookup(field="name"),
+                DisplayLookup(field="amount"),
+            ],
+        ),
     ]
 
 
