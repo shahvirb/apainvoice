@@ -57,7 +57,7 @@ class MatchesDateListEntry(BaseModel):
     matches: list[Match]
 
 
-def matches_date_list(matches: list[Match]) -> reversed[MatchesDateListEntry]:
+def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
     match_days: dict[str, list[Match]] = {}
     for m in matches:
         date = m.startDate
@@ -66,6 +66,7 @@ def matches_date_list(matches: list[Match]) -> reversed[MatchesDateListEntry]:
         match_days[date].append(m)
 
     l = [MatchesDateListEntry(date=d, matches=m) for d, m in match_days.items()]
+    # Reverse the list so that the most recent dates are first in the list
     return reversed(l)
 
 
