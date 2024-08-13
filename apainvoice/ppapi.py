@@ -2,7 +2,7 @@ import json
 import logging
 import requests
 import typing
-from apainvoice import db, pydmodels
+from apainvoice import db, models
 
 logger = logging.getLogger(__name__)
 
@@ -106,9 +106,9 @@ class PoolPlayersAPI:
         match_data = self.get_match_data(match_id)
         return parse_players(match_data)
 
-    def fetch_completed_matches(self) -> list[pydmodels.Match]:
+    def fetch_completed_matches(self) -> list[models.Match]:
         matches = self.get_matches()
-        mr = pydmodels.MatchesResponse.model_validate(matches)
+        mr = models.MatchesResponse.model_validate(matches)
         completed_matches = mr.completed_matches()
         logger.info(f"Found {len(completed_matches)} completed matches")
         return completed_matches

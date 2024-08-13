@@ -1,4 +1,4 @@
-from apainvoice import pydmodels, ppapi, invoice
+from apainvoice import models, ppapi, invoice
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
@@ -12,7 +12,7 @@ app = FastAPI()
 
 
 def generate_bill(
-    api: ppapi.PoolPlayersAPI, mdle=pydmodels.MatchesDateListEntry
+    api: ppapi.PoolPlayersAPI, mdle=models.MatchesDateListEntry
 ) -> list[AnyComponent]:
     bills = invoice.calculate_bills(api, [m.id for m in mdle.matches])
     logger.info(f"Calculating bills for {len(mdle.matches)} matches on {mdle.date}")
@@ -31,7 +31,7 @@ def generate_bill(
 def generate_bills() -> list[AnyComponent]:
     api = ppapi.PersistentDataAPI()
     completed = api.fetch_completed_matches()
-    date_list = pydmodels.matches_date_list(completed)
+    date_list = models.matches_date_list(completed)
     components = []
     for mdle in date_list:
         components.extend(generate_bill(api, mdle))

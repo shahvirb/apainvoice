@@ -1,4 +1,4 @@
-from apainvoice import ppapi, pydmodels
+from apainvoice import models, ppapi
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,7 +36,7 @@ def calculate_bills(api: ppapi.PoolPlayersAPI, match_ids: list[int]):
             bills[name] += SINGLE_MATCH_BILL_AMOUNT
 
     player_bills = [
-        pydmodels.PlayerBill(name=name, amount=amt) for name, amt in bills.items()
+        models.PlayerBill(name=name, amount=amt) for name, amt in bills.items()
     ]
     return player_bills
 
