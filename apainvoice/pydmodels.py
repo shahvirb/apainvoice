@@ -47,9 +47,6 @@ class MatchesResponse(RootModel):
     def completed_matches(self) -> list[Match]:
         return [m for m in self.matches() if m.status == "COMPLETED"]
 
-    # def completed_matches(self) -> Matches:
-    #     return Matches(matches=[m for m in self.matches() if m.status == "COMPLETED"])
-
 
 # --- End Match and associated classes
 
