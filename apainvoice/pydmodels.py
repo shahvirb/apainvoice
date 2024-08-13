@@ -20,6 +20,7 @@ class Match(BaseModel):
 
 
 class Matches(BaseModel):
+    # TODO confirm that this class is needed. Between this class and Teams having a list[Matches] it feels like we have  unnecessary nesting
     matches: list[Match]
 
 
