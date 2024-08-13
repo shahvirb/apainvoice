@@ -57,8 +57,8 @@ class MatchesDateListEntry(BaseModel):
     matches: list[Match]
 
 
-def matches_date_list(matches: list[MatchesDateListEntry]):
-    match_days = {}
+def matches_date_list(matches: list[Match]) -> reversed[MatchesDateListEntry]:
+    match_days: dict[str, list[Match]] = {}
     for m in matches:
         date = m.startDate
         if date not in match_days:
