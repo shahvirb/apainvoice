@@ -10,6 +10,12 @@ GQLURL = "https://gql.poolplayers.com/graphql"
 DEFAULT_ACCESS_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjVyTjd2TDlFOUlwWUlnTjJsQ0JMdFd0TnhBZXRYaHkxNUJwNzl4a18wOVEifQ.eyJhcHBsaWNhdGlvblJlZnJlc2hUb2tlbklkIjoiNDY5NDM1NiIsImlhdCI6MTcyMjQ2Mzc1MywiaXNzIjoiQVBBIiwic3ViIjoiMjI3ODQ5MyJ9.POx2fQMK1ZkGK87aSjZxCJ45UVg01r-IvtzLnahNCXu4SzKEMfgX7cRnUiLqQhbmsq6-kiYclJBfZDcDhc6EMrspR30Y4CgqyJoSPW1_sSDSi7xUs4UP6Rjo4mqVdmAgc25qHUjDGDIzIikTjsQFCr6YzEpt600G4Vtskl9ZyRPYoi9h_CM8i_alXywepK9L4YALIq2pw08ePZSy5dMVqeVYOqkXBByQBfgV-UAnbA5LTrwbtVqMrfQ5RfyfwaOBnuwh2tKxr-wBa2Nb_WoFK3cYrSmkEMxUSwk-ps0kyKPG2qYmTIIc5FaodO4vXAoOG27FcsNTnUj4cGR6eebRFA"
 
 
+DEFAULT_HEADER = {
+    "Content-Type": "application/json",
+    "Origin": "https://league.poolplayers.com",
+}
+
+
 class ResponseOKWithErrorsData(Exception):
     "Raised if the response dictionary has a key named 'errors'"
     pass
@@ -20,11 +26,7 @@ def json_to_dict(response: requests.Response) -> typing.Any:
 
 
 def post_data(headers: dict | None, json_data: dict) -> typing.Any:
-    default_header = {
-        "Content-Type": "application/json",
-        "Origin": "https://league.poolplayers.com",
-    }
-    merged_headers = default_header | (headers if headers else {})
+    merged_headers = DEFAULT_HEADER | (headers if headers else {})
     response = requests.post(GQLURL, headers=merged_headers, json=json_data)
     assert response.status_code == 200
 
@@ -68,11 +70,13 @@ class PoolPlayersAPI:
         answer = post_data(None, data)
         return answer[0]["data"]["generateAccessToken"]["accessToken"]
 
-    def get_match_data(self, id: int) -> typing.Any:
+    def post_auth_data(self, json_data: dict) -> typing.Any:
         headers = {
             "Authorization": self.access_token,
         }
+        return post_data(headers, json_data)
 
+    def get_match_data(self, id: int) -> typing.Any:
         data = [
             {
                 "operationName": "MatchPage",
@@ -82,14 +86,10 @@ class PoolPlayersAPI:
         ]
 
         logger.info(f"Querying MatchPage id={id}")
-        answer = post_data(headers, data)
+        answer = self.post_auth_data(data)
         return answer
 
     def get_matches(self):
-        headers = {
-            "Authorization": self.access_token,
-        }
-
         data = [
             {
                 "operationName": "matchesByViewer",
@@ -99,7 +99,7 @@ class PoolPlayersAPI:
         ]
 
         logger.info(f"Querying for matches")
-        answer = post_data(headers, data)
+        answer = self.post_auth_data(data)
         return answer
 
     def fetch_players(self, match_id: int) -> list[str]:
