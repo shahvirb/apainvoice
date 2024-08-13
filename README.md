@@ -1,5 +1,6 @@
 ### Must Have
 - [] show only a players first name. Never display last names.
+- [] start using mypy
 - [] marking a players bill as paid
 
 ### Nice to Have
