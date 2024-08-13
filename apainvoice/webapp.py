@@ -4,9 +4,9 @@ from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
 import logging
+import uvicorn
 
 logger = logging.getLogger(__name__)
-
 
 app = FastAPI()
 
@@ -15,6 +15,7 @@ def generate_bill(
     api: ppapi.PoolPlayersAPI, mdle=pydmodels.MatchesDateListEntry
 ) -> list[AnyComponent]:
     bills = invoice.calculate_bills(api, [m.id for m in mdle.matches])
+    logger.info(f"Calculating bills for {len(mdle.matches)} matches on {mdle.date}")
     return [
         c.Heading(text=mdle.date, level=2),
         c.Table(
@@ -52,3 +53,9 @@ def landing_page() -> list[AnyComponent]:
 @app.get("/{path:path}")
 async def html_landing() -> HTMLResponse:
     return HTMLResponse(prebuilt_html(title="APA Invoice"))
+
+
+if __name__ == "__main__":
+    log_config = uvicorn.config.LOGGING_CONFIG
+    logging.basicConfig(level=logging.INFO)
+    uvicorn.run(app, host="0.0.0.0", port=8001, log_config=log_config)
