@@ -137,7 +137,7 @@ if __name__ == "__main__":
 
     api = PersistentDataAPI()
 
-    # completed_matches = api.fetch_completed_matches()
+    completed_matches = api.fetch_completed_matches()
     # date_list = pydmodels.matches_date_list(completed_matches)
 
     players = api.fetch_players(42940044)

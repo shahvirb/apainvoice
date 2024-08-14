@@ -19,29 +19,33 @@ class Match(BaseModel):
         return self.startTime.strftime(r"%Y-%m-%d")
 
 
-class Matches(BaseModel):
-    # TODO confirm that this class is needed. Between this class and Teams having a list[Matches] it feels like we have  unnecessary nesting
+class Team(BaseModel):
+    id: int
+    name: str
+    number: str
     matches: list[Match]
 
 
-class Teams(BaseModel):
-    teams: list[Matches]
-
-
 class Viewer(BaseModel):
-    viewer: Teams
+    id: int
+    teams: list[Team]
+    __typename: str
 
 
 class Data(BaseModel):
-    data: Viewer
+    viewer: Viewer
+
+
+class MRData(BaseModel):
+    data: Data
 
 
 class MatchesResponse(RootModel):
-    root: list[Data]
+    root: list[MRData]
 
     def matches(self) -> Generator[Any, Any, Any]:
-        for data in self.root:
-            for team in data.data.viewer.teams:
+        for mrdata in self.root:
+            for team in mrdata.data.viewer.teams:
                 for match in team.matches:
                     yield match
 
