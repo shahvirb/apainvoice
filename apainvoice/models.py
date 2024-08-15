@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
 from pydantic import BaseModel, RootModel
+from sqlmodel import Field, SQLModel
 from typing import Any, Generator
 import datetime
 import logging
@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# All these classes are for MatchResponse being turned into a list[Match]
+# All these classes are for MatchesResponse being turned into a list[Match]
 class Match(BaseModel):
     id: int
     status: str
@@ -36,12 +36,12 @@ class Data(BaseModel):
     viewer: Viewer
 
 
-class MRData(BaseModel):
+class MatchesResponseData(BaseModel):
     data: Data
 
 
 class MatchesResponse(RootModel):
-    root: list[MRData]
+    root: list[MatchesResponseData]
 
     def matches(self) -> Generator[Any, Any, Any]:
         for mrdata in self.root:
@@ -54,6 +54,63 @@ class MatchesResponse(RootModel):
 
 
 # --- End Match and associated classes
+
+
+# All these classes are for MatchDetails and associated classes
+class Player(BaseModel):
+    id: int
+    displayName: str
+
+
+class Scores(BaseModel):
+    id: int
+    player: Player
+
+
+class Results(BaseModel):
+    homeAway: str
+    scores: list[Scores]
+
+
+class FeesFromMatchDetails(BaseModel):
+    total: int
+
+
+class TeamFromMatchDetails(BaseModel):
+    id: int
+    name: str
+    number: str
+    isMine: bool
+
+
+# class MatchDetails(SQLModel, table=True):
+class MatchDetails(BaseModel):
+    id: int = Field(default=None, primary_key=True)
+    type: str
+    startTime: str
+    home: TeamFromMatchDetails
+    away: TeamFromMatchDetails
+    fees: FeesFromMatchDetails
+    results: list[Results]
+
+
+class MatchDetailsMatch(BaseModel):
+    match: MatchDetails
+
+
+class MatchDetailsResponseData(BaseModel):
+    data: MatchDetailsMatch
+
+
+class MatchDetailsResponse(RootModel):
+    root: list[MatchDetailsResponseData]
+
+    def get_match_details(self) -> MatchDetails:
+        assert len(self.root) == 1
+        return self.root[0].data.match
+
+
+# --- End MatchDetails and associated classes
 
 
 class MatchesDateListEntry(BaseModel):
@@ -77,3 +134,10 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
 class PlayerBill(BaseModel):
     name: str
     amount: int
+
+if __name__ == "__main__":
+    import json
+    with open('match page response.json') as f:
+        contents = json.load(f)
+        mdr = MatchDetailsResponse.model_validate(contents)
+        print(mdr)

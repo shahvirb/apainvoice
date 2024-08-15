@@ -1,8 +1,9 @@
+from apainvoice import db, models
 import json
 import logging
 import requests
+import sqlmodel
 import typing
-from apainvoice import db, models
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +77,7 @@ class PoolPlayersAPI:
         }
         return post_data(headers, json_data)
 
-    def get_match_data(self, id: int) -> typing.Any:
+    def get_match_details(self, id: int) -> models.MatchDetails:
         data = [
             {
                 "operationName": "MatchPage",
@@ -87,7 +88,8 @@ class PoolPlayersAPI:
 
         logger.info(f"Querying MatchPage id={id}")
         answer = self.post_auth_data(data)
-        return answer
+        response = models.MatchDetailsResponse.model_validate(answer)
+        return response.get_match_details()
 
     def get_matches(self):
         data = [
@@ -103,7 +105,7 @@ class PoolPlayersAPI:
         return answer
 
     def fetch_players(self, match_id: int) -> list[str]:
-        match_data = self.get_match_data(match_id)
+        match_data = self.get_match_details(match_id)
         return parse_players(match_data)
 
     def fetch_completed_matches(self) -> list[models.Match]:
@@ -118,18 +120,23 @@ class PersistentDataAPI(PoolPlayersAPI):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_match_data(self, id: int) -> typing.Any:
-        dbc = db.ReaderWriter()
-        match_data = dbc.read("match_data")
-        if id not in match_data:
-            data = db.create_data_dict(super().get_match_data(id))
-            match_data[id] = data
-            dbc.write("match_data", match_data)
-        return match_data[id]["data"]
+    def get_match_details(self, id: int) -> models.MatchDetails:
+        with sqlmodel.Session(db.create_engine()) as session:
+            query = sqlmodel.select(models.MatchDetails).where(models.MatchDetails.id == id)
+            mp = session.exec(query).first()
+            if not mp:
+                mp = super().get_match_details(id)
+                session.add(mp)
+                session.commit()
+            return mp
 
-
-def short_str(x: str) -> str:
-    return x[:3] + x[-3:]
+        # dbc = db.ReaderWriter()
+        # match_data = dbc.read("match_data")
+        # if id not in match_data:
+        #     data = db.create_data_dict(super().get_match_data(id))
+        #     match_data[id] = data
+        #     dbc.write("match_data", match_data)
+        # return match_data[id]["data"]
 
 
 if __name__ == "__main__":

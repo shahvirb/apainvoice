@@ -1,15 +1,17 @@
-import shelve
 import datetime
+import shelve
+import sqlmodel
 
 
-def get_db():
+# TODO remove all this
+def get_shelve_db():
     return shelve.open("app.db", writeback=True)
 
 
-def dump_db():
+def dump_shelve_db():
     import pprint
 
-    with get_db() as db:
+    with get_shelve_db() as db:
         pprint.pprint(dict(db))
 
 
@@ -19,26 +21,24 @@ def create_data_dict(data):
 
 class ReaderWriter:
     def write(self, key, data):
-        with get_db() as db:
+        with get_shelve_db() as db:
             db[key] = create_data_dict(data)
 
     def read(self, key):
-        with get_db() as db:
+        with get_shelve_db() as db:
             return db.get(key, default={})
 
 
+# --- end TODO
+
+
+def create_engine(dbname: str = "sqlite:///app.db"):
+    engine = sqlmodel.create_engine(dbname)
+    sqlmodel.SQLModel.metadata.create_all(engine)
+    return engine
+
+
 if __name__ == "__main__":
-    rw = ReaderWriter()
-
-    # Test writing to the database
-    key = "test_key"
-    # data = "Hello, world!"
-    # rw.write(key, data)
-    # print(f"Data written with key {key}: {data}")
-
-    # # Small delay to differentiate creation time
-    # import time
-    # time.sleep(1)
-
-    # Test reading from the database
-    dump_db()
+    engine = create_engine()
+    with sqlmodel.Session(engine) as session:
+        pass
