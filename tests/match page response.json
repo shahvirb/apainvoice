@@ -1,0 +1,702 @@
+[
+    {
+        "data": {
+            "match": {
+                "id": 42940044,
+                "division": {
+                    "id": 383517,
+                    "electronicScoringEnabled": true,
+                    "__typename": "Division",
+                    "scheduleInEdit": false,
+                    "type": "NINE"
+                },
+                "league": {
+                    "id": 511,
+                    "esEnabled": true,
+                    "__typename": "League",
+                    "name": "APA of Austin",
+                    "currentSessionId": 133,
+                    "isElectronicPaymentsEnabled": true,
+                    "country": {
+                        "id": 1,
+                        "__typename": "Country"
+                    }
+                },
+                "__typename": "Match",
+                "type": "NINE",
+                "startTime": "2024-08-13T19:30:00-05:00",
+                "week": 13,
+                "isBye": false,
+                "isMine": true,
+                "isScored": true,
+                "scoresheet": null,
+                "isPaid": true,
+                "location": {
+                    "id": 112678,
+                    "phone": "+15126605185",
+                    "name": "Betsy's Billiards",
+                    "address": {
+                        "id": 74039,
+                        "name": "Betsy's Billiards",
+                        "address1": "1901 West William Cannon, STE 147",
+                        "address2": "",
+                        "city": "Austin",
+                        "zip": "78745",
+                        "latitude": 30.2021976,
+                        "longitude": -97.8060781,
+                        "__typename": "Address"
+                    },
+                    "__typename": "HostLocation"
+                },
+                "home": {
+                    "id": 12480924,
+                    "name": "Am I Stripes or Solids?",
+                    "number": "02012",
+                    "isMine": true,
+                    "league": {
+                        "id": 511,
+                        "slug": "Austin",
+                        "__typename": "League"
+                    },
+                    "division": {
+                        "id": 383517,
+                        "type": "NINE",
+                        "__typename": "Division"
+                    },
+                    "roster": [
+                        {
+                            "id": 88249649,
+                            "memberNumber": "78719911",
+                            "displayName": "Stephanie Papageorge",
+                            "matchesWon": 5,
+                            "matchesPlayed": 6,
+                            "pa": 0.65,
+                            "ppm": 13,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 2606143,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249648,
+                            "memberNumber": "78719670",
+                            "displayName": "Dion King",
+                            "matchesWon": 7,
+                            "matchesPlayed": 8,
+                            "pa": 0.65625,
+                            "ppm": 13.125,
+                            "skillLevel": 6,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3102247,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249651,
+                            "memberNumber": "78720775",
+                            "displayName": "Madhav Sharma",
+                            "matchesWon": 9,
+                            "matchesPlayed": 11,
+                            "pa": 0.6590909090909091,
+                            "ppm": 13.181818181818182,
+                            "skillLevel": 4,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3316056,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249652,
+                            "memberNumber": "78720802",
+                            "displayName": "Samkit Shah",
+                            "matchesWon": 5,
+                            "matchesPlayed": 8,
+                            "pa": 0.54375,
+                            "ppm": 10.875,
+                            "skillLevel": 7,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3316129,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249650,
+                            "memberNumber": "78720743",
+                            "displayName": "Alberto Calderon",
+                            "matchesWon": 4,
+                            "matchesPlayed": 8,
+                            "pa": 0.54375,
+                            "ppm": 10.875,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3315771,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249655,
+                            "memberNumber": "78720852",
+                            "displayName": "Paul Shelton",
+                            "matchesWon": 3,
+                            "matchesPlayed": 8,
+                            "pa": 0.43125,
+                            "ppm": 8.625,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3330793,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249654,
+                            "memberNumber": "78720881",
+                            "displayName": "Shahvir Buhariwalla",
+                            "matchesWon": 4,
+                            "matchesPlayed": 6,
+                            "pa": 0.6083333333333333,
+                            "ppm": 12.166666666666666,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3329255,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88578152,
+                            "memberNumber": "78721076",
+                            "displayName": "Joe Flores",
+                            "matchesWon": 9,
+                            "matchesPlayed": 10,
+                            "pa": 0.62,
+                            "ppm": 12.4,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3356722,
+                                "__typename": "Member"
+                            }
+                        }
+                    ],
+                    "__typename": "Team"
+                },
+                "away": {
+                    "id": 12480923,
+                    "name": "The Cueusal Suspects",
+                    "number": "02011",
+                    "isMine": false,
+                    "league": {
+                        "id": 511,
+                        "slug": "Austin",
+                        "__typename": "League"
+                    },
+                    "division": {
+                        "id": 383517,
+                        "type": "NINE",
+                        "__typename": "Division"
+                    },
+                    "roster": [
+                        {
+                            "id": 88249642,
+                            "memberNumber": "78719389",
+                            "displayName": "Max Tran",
+                            "matchesWon": 2,
+                            "matchesPlayed": 10,
+                            "pa": 0.395,
+                            "ppm": 7.9,
+                            "skillLevel": 7,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 2568145,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249643,
+                            "memberNumber": "78720545",
+                            "displayName": "Justin Aragon",
+                            "matchesWon": 4,
+                            "matchesPlayed": 8,
+                            "pa": 0.5375,
+                            "ppm": 10.75,
+                            "skillLevel": 4,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3027156,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249641,
+                            "memberNumber": "78713540",
+                            "displayName": "An Nguyen",
+                            "matchesWon": 5,
+                            "matchesPlayed": 8,
+                            "pa": 0.53125,
+                            "ppm": 10.625,
+                            "skillLevel": 6,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 2778725,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249644,
+                            "memberNumber": "78720594",
+                            "displayName": "Johnny McEntee",
+                            "matchesWon": 3,
+                            "matchesPlayed": 10,
+                            "pa": 0.44000000000000006,
+                            "ppm": 8.8,
+                            "skillLevel": 3,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3293476,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249645,
+                            "memberNumber": "78720635",
+                            "displayName": "Dan Stapleton",
+                            "matchesWon": 7,
+                            "matchesPlayed": 11,
+                            "pa": 0.5409090909090909,
+                            "ppm": 10.818181818181818,
+                            "skillLevel": 4,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3293613,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88249646,
+                            "memberNumber": "78720791",
+                            "displayName": "Jack Urlin",
+                            "matchesWon": 2,
+                            "matchesPlayed": 6,
+                            "pa": 0.4416666666666667,
+                            "ppm": 8.833333333333334,
+                            "skillLevel": 4,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3317748,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88542721,
+                            "memberNumber": "78721045",
+                            "displayName": "Jonathan Langerud",
+                            "matchesWon": 4,
+                            "matchesPlayed": 7,
+                            "pa": 0.48571428571428565,
+                            "ppm": 9.714285714285714,
+                            "skillLevel": 2,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3354308,
+                                "__typename": "Member"
+                            }
+                        },
+                        {
+                            "id": 88571577,
+                            "memberNumber": "78721122",
+                            "displayName": "Megan Choy",
+                            "matchesWon": 2,
+                            "matchesPlayed": 5,
+                            "pa": 0.42000000000000004,
+                            "ppm": 8.4,
+                            "skillLevel": 1,
+                            "__typename": "NineBallPlayer",
+                            "member": {
+                                "id": 3354623,
+                                "__typename": "Member"
+                            }
+                        }
+                    ],
+                    "__typename": "Team"
+                },
+                "session": {
+                    "id": 133,
+                    "name": "Summer 2024",
+                    "year": 2024,
+                    "__typename": "Session"
+                },
+                "fees": {
+                    "amount": 40,
+                    "tax": 0,
+                    "total": 40,
+                    "__typename": "Fees"
+                },
+                "orderItems": [
+                    {
+                        "id": 876164,
+                        "order": {
+                            "id": 1332292,
+                            "member": {
+                                "id": 3329255,
+                                "firstName": "Shahvir",
+                                "lastName": "Buhariwalla",
+                                "__typename": "Member"
+                            },
+                            "__typename": "Order"
+                        },
+                        "__typename": "MatchOrder"
+                    }
+                ],
+                "results": [
+                    {
+                        "homeAway": "HOME",
+                        "overUnder": 0,
+                        "forfeits": 0,
+                        "matchesWon": 4,
+                        "matchesPlayed": 5,
+                        "points": {
+                            "bonus": 15,
+                            "penalty": 0,
+                            "won": 65,
+                            "adjustment": 0,
+                            "sportsmanship": 0,
+                            "total": 80,
+                            "skillLevelViolationAdjustment": 0,
+                            "__typename": "MatchResultPoints"
+                        },
+                        "scores": [
+                            {
+                                "id": 105757564,
+                                "player": {
+                                    "id": 88249651,
+                                    "displayName": "Madhav Sharma",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 1,
+                                "playerPosition": 2,
+                                "skillLevel": 4,
+                                "innings": 20,
+                                "defensiveShots": 1,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 31,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 16,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "W",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757566,
+                                "player": {
+                                    "id": 88249649,
+                                    "displayName": "Stephanie Papageorge",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 2,
+                                "playerPosition": 2,
+                                "skillLevel": 3,
+                                "innings": 30,
+                                "defensiveShots": 5,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 25,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 13,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "W",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757568,
+                                "player": {
+                                    "id": 88249652,
+                                    "displayName": "Samkit Shah",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 3,
+                                "playerPosition": 2,
+                                "skillLevel": 7,
+                                "innings": 36,
+                                "defensiveShots": 9,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 55,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 12,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "W",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757569,
+                                "player": {
+                                    "id": 88249648,
+                                    "displayName": "Dion King",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 4,
+                                "playerPosition": 1,
+                                "skillLevel": 6,
+                                "innings": 17,
+                                "defensiveShots": 2,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 46,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 16,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "W",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757572,
+                                "player": {
+                                    "id": 88249650,
+                                    "displayName": "Alberto Calderon",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 5,
+                                "playerPosition": 2,
+                                "skillLevel": 3,
+                                "innings": 26,
+                                "defensiveShots": 5,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 24,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 8,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "L",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            }
+                        ],
+                        "__typename": "MatchResult"
+                    },
+                    {
+                        "homeAway": "AWAY",
+                        "overUnder": 0,
+                        "forfeits": 0,
+                        "matchesWon": 1,
+                        "matchesPlayed": 5,
+                        "points": {
+                            "bonus": 15,
+                            "penalty": 0,
+                            "won": 35,
+                            "adjustment": 0,
+                            "sportsmanship": 0,
+                            "total": 50,
+                            "skillLevelViolationAdjustment": 0,
+                            "__typename": "MatchResultPoints"
+                        },
+                        "scores": [
+                            {
+                                "id": 105757563,
+                                "player": {
+                                    "id": 88249644,
+                                    "displayName": "Johnny McEntee",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 1,
+                                "playerPosition": 1,
+                                "skillLevel": 3,
+                                "innings": 20,
+                                "defensiveShots": 0,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 13,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 4,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "L",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757570,
+                                "player": {
+                                    "id": 88249646,
+                                    "displayName": "Jack Urlin",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 4,
+                                "playerPosition": 2,
+                                "skillLevel": 4,
+                                "innings": 17,
+                                "defensiveShots": 3,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 16,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 4,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "L",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757571,
+                                "player": {
+                                    "id": 88249645,
+                                    "displayName": "Dan Stapleton",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 5,
+                                "playerPosition": 1,
+                                "skillLevel": 4,
+                                "innings": 26,
+                                "defensiveShots": 5,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 31,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 12,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "W",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757567,
+                                "player": {
+                                    "id": 88249642,
+                                    "displayName": "Max Tran",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 3,
+                                "playerPosition": 1,
+                                "skillLevel": 7,
+                                "innings": 36,
+                                "defensiveShots": 7,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 50,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 8,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "L",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            },
+                            {
+                                "id": 105757565,
+                                "player": {
+                                    "id": 88249643,
+                                    "displayName": "Justin Aragon",
+                                    "__typename": "NineBallPlayer"
+                                },
+                                "matchPositionNumber": 2,
+                                "playerPosition": 1,
+                                "skillLevel": 5,
+                                "innings": 30,
+                                "defensiveShots": 2,
+                                "eightBallWins": null,
+                                "eightOnBreak": null,
+                                "eightBallBreakAndRun": null,
+                                "nineBallPoints": 30,
+                                "nineOnSnap": 0,
+                                "nineBallBreakAndRun": 0,
+                                "nineBallMatchPointsEarned": 7,
+                                "mastersEightBallWins": null,
+                                "mastersNineBallWins": null,
+                                "winLoss": "L",
+                                "matchForfeited": false,
+                                "doublesMatch": false,
+                                "dateTimeStamp": "2024-07-31T10:39:25Z",
+                                "teamSlot": "9A",
+                                "eightBallMatchPointsEarned": null,
+                                "incompleteMatch": false,
+                                "__typename": "MatchScore"
+                            }
+                        ],
+                        "__typename": "MatchResult"
+                    }
+                ]
+            }
+        }
+    }
+]

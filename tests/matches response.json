@@ -1,0 +1,2370 @@
+[
+    {
+        "data": {
+            "viewer": {
+                "id": 3329255,
+                "teams": [ 
+                    {
+                        "id": 12480924,
+                        "name": "Am I Stripes or Solids?",
+                        "number": "02012",
+                        "session": {
+                            "id": 133,
+                            "name": "Summer 2024",
+                            "__typename": "Session"
+                        },
+                        "matches": [ 
+                            {
+                                "type": "NINE",
+                                "id": 42939959,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-05-21T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 50,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 65,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480921,
+                                    "name": "Dem-n-Us",
+                                    "number": "02009",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42939965,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-05-28T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 70,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 60,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480919,
+                                    "name": "The Lovejoys",
+                                    "number": "02007",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 808791,
+                                        "order": {
+                                            "id": 1271866,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42939975,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-04T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 71,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 44,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12507340,
+                                    "name": "Dude wheres my cue?",
+                                    "number": "02013",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 816506,
+                                        "order": {
+                                            "id": 1279471,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42939976,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-11T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 60,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 70,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480913,
+                                    "name": "Little Rascals 9",
+                                    "number": "02001",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 823259,
+                                        "order": {
+                                            "id": 1285896,
+                                            "member": {
+                                                "id": 2606143,
+                                                "firstName": "Stephanie",
+                                                "lastName": "Papageorge",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42939984,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-18T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 66,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 64,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480915,
+                                    "name": "Deadballz",
+                                    "number": "02003",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 831141,
+                                        "order": {
+                                            "id": 1293472,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42939991,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-25T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 67,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 63,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480914,
+                                    "name": "WOLFPACK",
+                                    "number": "02002",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 839155,
+                                        "order": {
+                                            "id": 1300359,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940002,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-02T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 88,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 42,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12501944,
+                                    "name": "Capital Snap",
+                                    "number": "02014",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 846852,
+                                        "order": {
+                                            "id": 1306906,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940010,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-09T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 50,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 80,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480917,
+                                    "name": "Nineaholics",
+                                    "number": "02005",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 853152,
+                                        "order": {
+                                            "id": 1312252,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940016,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-16T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 50,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 80,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12514059,
+                                    "name": "Guerrilla Tactics",
+                                    "number": "02010",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 860370,
+                                        "order": {
+                                            "id": 1318363,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940022,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-23T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 71,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 59,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480920,
+                                    "name": "No X-CUES-ES",
+                                    "number": "02008",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 868884,
+                                        "order": {
+                                            "id": 1325691,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940028,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-30T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 42,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 88,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480918,
+                                    "name": "Off The Tip",
+                                    "number": "02006",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 875827,
+                                        "order": {
+                                            "id": 1331978,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940037,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-06T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 81,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 49,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480916,
+                                    "name": "Dybbuks",
+                                    "number": "02004",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 883754,
+                                        "order": {
+                                            "id": 1339697,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940044,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-13T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 80,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 50,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480923,
+                                    "name": "The Cueusal Suspects",
+                                    "number": "02011",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 876164,
+                                        "order": {
+                                            "id": 1332292,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940050,
+                                "isBye": false,
+                                "status": "UNPLAYED",
+                                "scoresheet": "https://api.poolplayers.com/scoresheets/PrintOMSScoresheet/42940050/3329255/3",
+                                "startTime": "2024-08-20T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480921,
+                                    "name": "Dem-n-Us",
+                                    "number": "02009",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "NINE",
+                                "id": 42940056,
+                                "isBye": false,
+                                "status": "UNPLAYED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-27T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480924,
+                                    "name": "Am I Stripes or Solids?",
+                                    "number": "02012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480919,
+                                    "name": "The Lovejoys",
+                                    "number": "02007",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383517,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            }
+                        ],
+                        "__typename": "Team"
+                    },
+                    {
+                        "id": 12480968,
+                        "name": "Keep Pool Weird",
+                        "number": "20012",
+                        "session": {
+                            "id": 133,
+                            "name": "Summer 2024",
+                            "__typename": "Session"
+                        },
+                        "matches": [
+                            {
+                                "type": "EIGHT",
+                                "id": 42943051,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-05-21T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 4,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480965,
+                                    "name": "Dem-n-Us",
+                                    "number": "20009",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943057,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-05-28T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 8,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480963,
+                                    "name": "The Lovejoys",
+                                    "number": "20007",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 808792,
+                                        "order": {
+                                            "id": 1271866,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943067,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-04T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12507337,
+                                    "name": "Dude wheres my cue?",
+                                    "number": "20013",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 816507,
+                                        "order": {
+                                            "id": 1279471,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943068,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-11T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 8,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 10,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480957,
+                                    "name": "Little Rascals 8",
+                                    "number": "20001",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 823260,
+                                        "order": {
+                                            "id": 1285896,
+                                            "member": {
+                                                "id": 2606143,
+                                                "firstName": "Stephanie",
+                                                "lastName": "Papageorge",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943076,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-18T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 8,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480959,
+                                    "name": "Deadballz",
+                                    "number": "20003",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 831142,
+                                        "order": {
+                                            "id": 1293472,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943083,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-06-25T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 10,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480958,
+                                    "name": "WOLFPACK",
+                                    "number": "20002",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 839156,
+                                        "order": {
+                                            "id": 1300359,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943094,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-02T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 6,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12501179,
+                                    "name": "Capital Snap",
+                                    "number": "20014",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 846853,
+                                        "order": {
+                                            "id": 1306906,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943102,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-09T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 8,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 10,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480961,
+                                    "name": "Rolling Stoners",
+                                    "number": "20005",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 853151,
+                                        "order": {
+                                            "id": 1312252,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943108,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-16T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480990,
+                                    "name": "Guerrilla Tactics",
+                                    "number": "20010",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 860371,
+                                        "order": {
+                                            "id": 1318363,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943114,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-23T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 9,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 8,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480964,
+                                    "name": "No X-CUES-ES",
+                                    "number": "20008",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 868885,
+                                        "order": {
+                                            "id": 1325691,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943120,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-07-30T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480962,
+                                    "name": "Off The Tip",
+                                    "number": "20006",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 875828,
+                                        "order": {
+                                            "id": 1331978,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943129,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-06T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 7,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 11,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480960,
+                                    "name": "Dybbuks",
+                                    "number": "20004",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 883755,
+                                        "order": {
+                                            "id": 1339698,
+                                            "member": {
+                                                "id": 3316129,
+                                                "firstName": "Samkit",
+                                                "lastName": "Shah",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943136,
+                                "isBye": false,
+                                "status": "COMPLETED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-13T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": true,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [
+                                    {
+                                        "homeAway": "HOME",
+                                        "points": {
+                                            "total": 9,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    },
+                                    {
+                                        "homeAway": "AWAY",
+                                        "points": {
+                                            "total": 4,
+                                            "__typename": "MatchResultPoints"
+                                        },
+                                        "__typename": "MatchResult"
+                                    }
+                                ],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480967,
+                                    "name": "The Cueusal Suspects",
+                                    "number": "20011",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [
+                                    {
+                                        "id": 875829,
+                                        "order": {
+                                            "id": 1331978,
+                                            "member": {
+                                                "id": 3329255,
+                                                "firstName": "Shahvir",
+                                                "lastName": "Buhariwalla",
+                                                "__typename": "Member"
+                                            },
+                                            "__typename": "Order"
+                                        },
+                                        "__typename": "MatchOrder"
+                                    }
+                                ],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943142,
+                                "isBye": false,
+                                "status": "UNPLAYED",
+                                "scoresheet": "https://api.poolplayers.com/scoresheets/PrintOMSScoresheet/42943142/3329255/3",
+                                "startTime": "2024-08-20T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480965,
+                                    "name": "Dem-n-Us",
+                                    "number": "20009",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            },
+                            {
+                                "type": "EIGHT",
+                                "id": 42943148,
+                                "isBye": false,
+                                "status": "UNPLAYED",
+                                "scoresheet": null,
+                                "startTime": "2024-08-27T19:30:00-05:00",
+                                "isMine": true,
+                                "isPaid": false,
+                                "isPlayoff": false,
+                                "description": "",
+                                "results": [],
+                                "location": {
+                                    "id": 112678,
+                                    "name": "Betsy's Billiards",
+                                    "address": {
+                                        "id": 74039,
+                                        "name": "Betsy's Billiards",
+                                        "__typename": "Address"
+                                    },
+                                    "__typename": "HostLocation"
+                                },
+                                "home": {
+                                    "id": 12480968,
+                                    "name": "Keep Pool Weird",
+                                    "number": "20012",
+                                    "isMine": true,
+                                    "__typename": "Team"
+                                },
+                                "away": {
+                                    "id": 12480963,
+                                    "name": "The Lovejoys",
+                                    "number": "20007",
+                                    "isMine": false,
+                                    "__typename": "Team"
+                                },
+                                "league": {
+                                    "id": 511,
+                                    "isMine": true,
+                                    "slug": "Austin",
+                                    "isElectronicPaymentsEnabled": true,
+                                    "__typename": "League"
+                                },
+                                "orderItems": [],
+                                "division": {
+                                    "id": 383521,
+                                    "scheduleInEdit": false,
+                                    "__typename": "Division"
+                                },
+                                "__typename": "Match"
+                            }
+                        ],
+                        "__typename": "Team"
+                    }
+                ],
+                "__typename": "Member"
+            }
+        }
+    }
+]

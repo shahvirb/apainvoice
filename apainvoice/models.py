@@ -134,10 +134,3 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
 class PlayerBill(BaseModel):
     name: str
     amount: int
-
-if __name__ == "__main__":
-    import json
-    with open('match page response.json') as f:
-        contents = json.load(f)
-        mdr = MatchDetailsResponse.model_validate(contents)
-        print(mdr)
