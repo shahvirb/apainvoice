@@ -52,6 +52,7 @@ def parse_players(match_results) -> list[str]:
 
 class PoolPlayersAPI:
     def __init__(self) -> None:
+        # TODO should you really refresh_access_token right away? What if everything uses SQL and no post API calls are ever made?
         self.access_token = self.refresh_access_token()
 
     def refresh_access_token(self, refresh_token: str = DEFAULT_ACCESS_TOKEN) -> str:

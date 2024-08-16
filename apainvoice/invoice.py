@@ -68,6 +68,7 @@ def make_invoice(
             bills[p.id].amount += single_fee
 
     invoice = models.Invoice(name=invoice_name, bills=list(bills.values()))
+    # TODO shouldn't we also link an invoice to models.MatchDetails ?
     return invoice
 
 
