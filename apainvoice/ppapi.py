@@ -120,15 +120,15 @@ class PersistentDataAPI(PoolPlayersAPI):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_match_details(self, id: int) -> models.MatchDetails:
-        with sqlmodel.Session(db.create_engine()) as session:
-            query = sqlmodel.select(models.MatchDetails).where(models.MatchDetails.id == id)
-            mp = session.exec(query).first()
-            if not mp:
-                mp = super().get_match_details(id)
-                session.add(mp)
-                session.commit()
-            return mp
+    # def get_match_details(self, id: int) -> models.MatchDetails:
+    #     with sqlmodel.Session(db.create_engine()) as session:
+    #         query = sqlmodel.select(models.MatchDetails).where(models.MatchDetails.id == id)
+    #         mp = session.exec(query).first()
+    #         if not mp:
+    #             mp = super().get_match_details(id)
+    #             session.add(mp)
+    #             session.commit()
+    #         return mp
 
         # dbc = db.ReaderWriter()
         # match_data = dbc.read("match_data")

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, RootModel
-from sqlmodel import Field, SQLModel
-from typing import Any, Generator
+from sqlmodel import Field, SQLModel, Relationship
+from typing import Any, Generator, Optional
 import datetime
 import logging
 
@@ -57,9 +57,10 @@ class MatchesResponse(RootModel):
 
 
 # All these classes are for MatchDetails and associated classes
-class Player(BaseModel):
-    id: int
+class Player(SQLModel, table=True):
+    id: int = Field(default=None, primary_key=True)
     displayName: str
+    bills: list["PlayerBill"] = Relationship(back_populates="player")
 
 
 class Scores(BaseModel):
@@ -70,6 +71,10 @@ class Scores(BaseModel):
 class Results(BaseModel):
     homeAway: str
     scores: list[Scores]
+
+    def get_players(self):
+        for sc in self.scores:
+            yield sc.player
 
 
 class FeesFromMatchDetails(BaseModel):
@@ -82,7 +87,7 @@ class TeamFromMatchDetails(BaseModel):
     number: str
     isMine: bool
 
-
+# Nomenclature: a match in this context is a set of matches played in one game type. E.g., all 5 matches played in 8 ball that night
 # class MatchDetails(SQLModel, table=True):
 class MatchDetails(BaseModel):
     id: int = Field(default=None, primary_key=True)
@@ -92,6 +97,10 @@ class MatchDetails(BaseModel):
     away: TeamFromMatchDetails
     fees: FeesFromMatchDetails
     results: list[Results]
+
+    def get_players(self):
+        for r in self.results:
+            yield from r.get_players()
 
 
 class MatchDetailsMatch(BaseModel):
@@ -131,6 +140,18 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
     return reversed(l)
 
 
-class PlayerBill(BaseModel):
-    name: str
+class PlayerBill(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    # name: str
     amount: int
+    status: str = ""
+    # invoice: "Invoice" = Relationship(back_populates="bills")
+    player: Player = Relationship(back_populates="bills")
+    player_id: int = Field(foreign_key="player.id")
+
+
+class Invoice(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    # match_ids: list[int]  # = Field(default=None, foreign_key="parent.id")
+    # bills: list[PlayerBill] = Relationship(back_populates="invoice")

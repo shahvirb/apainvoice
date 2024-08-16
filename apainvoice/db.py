@@ -1,9 +1,11 @@
-import datetime
-import shelve
 import sqlmodel
 
 
 # TODO remove all this
+import datetime
+import shelve
+
+
 def get_shelve_db():
     return shelve.open("app.db", writeback=True)
 
@@ -32,7 +34,7 @@ class ReaderWriter:
 # --- end TODO
 
 
-def create_engine(dbname: str = "sqlite:///app.db"):
+def create_engine(dbname: str = "sqlite:///apainvoice.db"):
     engine = sqlmodel.create_engine(dbname)
     sqlmodel.SQLModel.metadata.create_all(engine)
     return engine
