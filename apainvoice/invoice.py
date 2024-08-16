@@ -19,26 +19,32 @@ def make_invoice(
     api: ppapi.PoolPlayersAPI, matchdetails: list[models.MatchDetails]
 ) -> models.Invoice:
     assert matchdetails
-
     fees_sum = 0
-    invoice_name = matchdetails[0].startDate()
+    invoice_name = matchdetails[0].startDate
     players: list[models.Player] = []
+
     for md in matchdetails:
         assert (
-            invoice_name == md.startDate()
+            invoice_name == md.startDate
         )  # Assert that an invoice is only for one date
         fees_sum += md.fees.total
         for p in md.get_players():
             if p.displayName in PLAYERS:
                 players.append(p)
+                logger.info(
+                    f"Found player {p.displayName} in match ID={md.id} type={md.type}"
+                )
 
-    single_fee = fees_sum / len(players)
-    bills: dict[int, models.PlayerBill] = {}
+    single_fee = round(fees_sum / len(players), 2)
+    logger.info(f"single_fee = {fees_sum} / {len(players)} == {single_fee}")
+    bills: dict[str, models.PlayerBill] = {}
     for p in players:
-        if p.id not in bills:
-            bills[p.id] = models.PlayerBill(amount=single_fee, player_id=p.id, player=p)
+        if p.displayName not in bills:
+            bills[p.displayName] = models.PlayerBill(
+                amount=single_fee, player_name=p.displayName, player=p
+            )
         else:
-            bills[p.id].amount += single_fee
+            bills[p.displayName].amount += single_fee
 
     invoice = models.Invoice(name=invoice_name, bills=list(bills.values()))
     # TODO shouldn't we also link an invoice to models.MatchDetails ?

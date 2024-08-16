@@ -6,8 +6,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def date(dt: datetime) -> str:
-        return dt.strftime(r"%Y-%m-%d")
+    return dt.strftime(r"%Y-%m-%d")
+
 
 # All these classes are for MatchesResponse being turned into a list[Match]
 class Match(BaseModel):
@@ -60,8 +62,8 @@ class MatchesResponse(RootModel):
 
 # All these classes are for MatchDetails and associated classes
 class Player(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True)
-    displayName: str
+    # id: int = Field(default=None, primary_key=True)
+    displayName: str = Field(primary_key=True)
     bills: list["PlayerBill"] = Relationship(back_populates="player")
 
 
@@ -89,12 +91,13 @@ class TeamFromMatchDetails(BaseModel):
     number: str
     isMine: bool
 
+
 # Nomenclature: a match in this context is a set of matches played in one game type. E.g., all 5 matches played in 8 ball that night
 # class MatchDetails(SQLModel, table=True):
 class MatchDetails(BaseModel):
     id: int = Field(default=None, primary_key=True)
     type: str
-    startTime: str
+    startTime: datetime.datetime
     home: TeamFromMatchDetails
     away: TeamFromMatchDetails
     fees: FeesFromMatchDetails
@@ -103,7 +106,7 @@ class MatchDetails(BaseModel):
     def get_players(self):
         for r in self.results:
             yield from r.get_players()
-            
+
     @property
     def startDate(self) -> str:
         return date(self.startTime)
@@ -148,13 +151,12 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
 
 class PlayerBill(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    # name: str
     amount: int
     status: str = ""
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
     player: Player = Relationship(back_populates="bills")
-    player_id: int = Field(foreign_key="player.id")
+    player_name: int = Field(foreign_key="player.displayName")
 
 
 class Invoice(SQLModel, table=True):

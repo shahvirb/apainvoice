@@ -1,8 +1,7 @@
-from apainvoice import db, models
+from apainvoice import models
 import json
 import logging
 import requests
-import sqlmodel
 import typing
 
 logger = logging.getLogger(__name__)
@@ -102,34 +101,10 @@ class PoolPlayersAPI:
         return completed_matches
 
 
-# TODO should this file even know about db.py and be responsible for it?
-class PersistentDataAPI(PoolPlayersAPI):
-    def __init__(self) -> None:
-        super().__init__()
-
-    # def get_match_details(self, id: int) -> models.MatchDetails:
-    #     with sqlmodel.Session(db.create_engine()) as session:
-    #         query = sqlmodel.select(models.MatchDetails).where(models.MatchDetails.id == id)
-    #         mp = session.exec(query).first()
-    #         if not mp:
-    #             mp = super().get_match_details(id)
-    #             session.add(mp)
-    #             session.commit()
-    #         return mp
-
-    # dbc = db.ReaderWriter()
-    # match_data = dbc.read("match_data")
-    # if id not in match_data:
-    #     data = db.create_data_dict(super().get_match_data(id))
-    #     match_data[id] = data
-    #     dbc.write("match_data", match_data)
-    # return match_data[id]["data"]
-
-
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
-    api = PersistentDataAPI()
+    api = PoolPlayersAPI()
 
     completed_matches = api.fetch_completed_matches()
     # date_list = pydmodels.matches_date_list(completed_matches)
