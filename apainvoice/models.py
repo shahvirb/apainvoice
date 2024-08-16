@@ -6,6 +6,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def date(dt: datetime) -> str:
+        return dt.strftime(r"%Y-%m-%d")
 
 # All these classes are for MatchesResponse being turned into a list[Match]
 class Match(BaseModel):
@@ -16,7 +18,7 @@ class Match(BaseModel):
 
     @property
     def startDate(self) -> str:
-        return self.startTime.strftime(r"%Y-%m-%d")
+        return date(self.startTime)
 
 
 class Team(BaseModel):
@@ -101,6 +103,10 @@ class MatchDetails(BaseModel):
     def get_players(self):
         for r in self.results:
             yield from r.get_players()
+            
+    @property
+    def startDate(self) -> str:
+        return date(self.startTime)
 
 
 class MatchDetailsMatch(BaseModel):
@@ -145,7 +151,8 @@ class PlayerBill(SQLModel, table=True):
     # name: str
     amount: int
     status: str = ""
-    # invoice: "Invoice" = Relationship(back_populates="bills")
+    invoice: "Invoice" = Relationship(back_populates="bills")
+    invoice_id: int = Field(foreign_key="invoice.id")
     player: Player = Relationship(back_populates="bills")
     player_id: int = Field(foreign_key="player.id")
 
@@ -154,4 +161,4 @@ class Invoice(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     # match_ids: list[int]  # = Field(default=None, foreign_key="parent.id")
-    # bills: list[PlayerBill] = Relationship(back_populates="invoice")
+    bills: list[PlayerBill] = Relationship(back_populates="invoice")

@@ -45,20 +45,20 @@ SINGLE_MATCH_BILL_AMOUNT = 8
 def make_invoice(
     api: ppapi.PoolPlayersAPI, matchdetails: list[models.MatchDetails]
 ) -> models.Invoice:
-    """Calculate a bill with matches of ID specified in match_ids
+    assert matchdetails
 
-    Args:
-        api (ppapi.PoolPlayersAPI): api object to fetch data
-        match_ids (list[int]): IDs of matches to use in the bill
-    """
     fees_sum = 0
+    invoice_name = matchdetails[0].startDate()
     players: list[models.Player] = []
     for md in matchdetails:
+        assert (
+            invoice_name == md.startDate()
+        )  # Assert that an invoice is only for one date
         fees_sum += md.fees.total
         for p in md.get_players():
             if p.displayName in PLAYERS:
                 players.append(p)
-                
+
     single_fee = fees_sum / len(players)
     bills: dict[int, models.PlayerBill] = {}
     for p in players:
@@ -66,8 +66,9 @@ def make_invoice(
             bills[p.id] = models.PlayerBill(amount=single_fee, player_id=p.id, player=p)
         else:
             bills[p.id].amount += single_fee
-    
-    return None
+
+    invoice = models.Invoice(name=invoice_name, bills=list(bills.values()))
+    return invoice
 
 
 if __name__ == "__main__":
