@@ -39,17 +39,6 @@ def post_data(headers: dict | None, json_data: dict) -> typing.Any:
     return resp_dict
 
 
-def parse_players(match_results) -> list[str]:
-    all = []
-    for results in match_results[0]["data"]["match"]["results"]:
-        for score in results["scores"]:
-            name = score["player"]["displayName"]
-            logger.debug(f"Found player: {name}")
-            all.append(name)
-    assert len(all) > 0
-    return all
-
-
 class PoolPlayersAPI:
     def __init__(self) -> None:
         # TODO should you really refresh_access_token right away? What if everything uses SQL and no post API calls are ever made?
@@ -92,7 +81,7 @@ class PoolPlayersAPI:
         response = models.MatchDetailsResponse.model_validate(answer)
         return response.get_match_details()
 
-    def get_matches(self):
+    def get_matches(self) -> typing.Any:
         data = [
             {
                 "operationName": "matchesByViewer",
@@ -105,10 +94,6 @@ class PoolPlayersAPI:
         answer = self.post_auth_data(data)
         return answer
 
-    def fetch_players(self, match_id: int) -> list[str]:
-        match_data = self.get_match_details(match_id)
-        return parse_players(match_data)
-
     def fetch_completed_matches(self) -> list[models.Match]:
         matches = self.get_matches()
         mr = models.MatchesResponse.model_validate(matches)
@@ -117,6 +102,7 @@ class PoolPlayersAPI:
         return completed_matches
 
 
+# TODO should this file even know about db.py and be responsible for it?
 class PersistentDataAPI(PoolPlayersAPI):
     def __init__(self) -> None:
         super().__init__()
@@ -131,13 +117,13 @@ class PersistentDataAPI(PoolPlayersAPI):
     #             session.commit()
     #         return mp
 
-        # dbc = db.ReaderWriter()
-        # match_data = dbc.read("match_data")
-        # if id not in match_data:
-        #     data = db.create_data_dict(super().get_match_data(id))
-        #     match_data[id] = data
-        #     dbc.write("match_data", match_data)
-        # return match_data[id]["data"]
+    # dbc = db.ReaderWriter()
+    # match_data = dbc.read("match_data")
+    # if id not in match_data:
+    #     data = db.create_data_dict(super().get_match_data(id))
+    #     match_data[id] = data
+    #     dbc.write("match_data", match_data)
+    # return match_data[id]["data"]
 
 
 if __name__ == "__main__":
@@ -147,6 +133,3 @@ if __name__ == "__main__":
 
     completed_matches = api.fetch_completed_matches()
     # date_list = pydmodels.matches_date_list(completed_matches)
-
-    players = api.fetch_players(42940044)
-    print(players)
