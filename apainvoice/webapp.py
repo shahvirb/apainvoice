@@ -19,6 +19,7 @@ def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
             columns=[
                 DisplayLookup(field="first_name", title="Name"),
                 DisplayLookup(field="currency_str", title="Amount"),
+                DisplayLookup(field="status"),
             ],
         ),
     ]
@@ -28,7 +29,6 @@ def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
 def render_all_invoices() -> list[AnyComponent]:
     invoices = controller.get_invoices()
     logger.debug(f"Got {len(invoices)} invoices")
-    # return [c.Heading(text="debug remove me", level=1)]
     components = []
     for inv in invoices:
         components.extend(render_invoice(inv))

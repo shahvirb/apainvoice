@@ -10,8 +10,10 @@ logger = logging.getLogger(__name__)
 def date(dt: datetime) -> str:
     return dt.strftime(r"%Y-%m-%d")
 
+
 def first_word(s):
     return s.split(" ")[0]
+
 
 # All these classes are for MatchesResponse being turned into a list[Match]
 class Match(BaseModel):
@@ -170,7 +172,7 @@ class PlayerBill(SQLModel, table=True):
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
     player_name: str
-    
+
     @computed_field
     @property
     def currency_str(self) -> str:
@@ -178,7 +180,7 @@ class PlayerBill(SQLModel, table=True):
         if self.amount.is_integer():
             v = int(v)
         return f"${v}"
-    
+
     @computed_field
     @property
     def first_name(self) -> str:
