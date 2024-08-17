@@ -155,6 +155,7 @@ class PlayerBill(SQLModel, table=True):
     status: str = ""
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
+    # TODO player relationship is not actually used. It might be useful later to find all bills for a player but should it be deleted for now?
     player: Player = Relationship(back_populates="bills")
     player_name: int = Field(foreign_key="player.displayName")
 
@@ -162,5 +163,4 @@ class PlayerBill(SQLModel, table=True):
 class Invoice(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    # match_ids: list[int]  # = Field(default=None, foreign_key="parent.id")
     bills: list[PlayerBill] = Relationship(back_populates="invoice")
