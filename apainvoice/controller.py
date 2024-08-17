@@ -24,7 +24,9 @@ def player_names(names: list[str] = B64_PLAYERS) -> list[str]:
 
 
 def make_invoice(
-    api: ppapi.PoolPlayersAPI, matches_date_list: models.MatchesDateList
+    api: ppapi.PoolPlayersAPI,
+    matches_date_list: models.MatchesDateList,
+    session_name: str,
 ) -> models.Invoice:
 
     matchdetails = [api.get_match_details(m.id) for m in matches_date_list.matches]
@@ -68,30 +70,31 @@ def make_invoice(
         name=invoice_name,
         bills=list(bills.values()),
         matches_hash=matches_date_list.matches_hash,
+        session_name=session_name,
     )
     return invoice
 
 
 def get_invoices(api: ppapi.PoolPlayersAPI, session):
-    completed = api.fetch_completed_matches()
-    logger.info(f"Queried and found {len(completed)} completed matches")
+    completed, session_name = api.fetch_completed_matches()
     matches_date_list = models.matches_date_list(completed)
     for mdl in matches_date_list:
         results = session.exec(
-                sqlmodel.select(models.Invoice).where(
-                    models.Invoice.matches_hash == mdl.matches_hash
-                )
-            ).all()
+            sqlmodel.select(models.Invoice).where(
+                models.Invoice.matches_hash == mdl.matches_hash
+            )
+        ).all()
         assert len(results) <= 1
         if results:
             inv = results[0]
             logger.info(f"Found existing invoice {inv.name}")
             yield inv
         else:
-            inv = make_invoice(api, mdl)
+            inv = make_invoice(api, mdl, session_name)
             session.add(inv)
             session.commit()
             yield inv
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)

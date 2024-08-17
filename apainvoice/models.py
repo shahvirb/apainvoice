@@ -23,10 +23,16 @@ class Match(BaseModel):
         return date(self.startTime)
 
 
+class Session(BaseModel):
+    id: int
+    name: str
+
+
 class Team(BaseModel):
     id: int
     name: str
     number: str
+    session: Session
     matches: list[Match]
 
 
@@ -171,3 +177,4 @@ class Invoice(SQLModel, table=True):
     name: str
     bills: list[PlayerBill] = Relationship(back_populates="invoice")
     matches_hash: str = Field(index=True)
+    session_name: str

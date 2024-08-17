@@ -93,12 +93,22 @@ class PoolPlayersAPI:
         answer = self.post_auth_data(data)
         return answer
 
-    def fetch_completed_matches(self) -> list[models.Match]:
+    def fetch_completed_matches(self) -> typing.Tuple[list[models.Match], str]:
+        """_summary_
+
+        Returns:
+            typing.Tuple[list[models.Match], str]:
+                first value is a list of completed matches
+                next value is the session name
+        """
         matches = self.get_matches()
         mr = models.MatchesResponse.model_validate(matches)
+        session_name = mr.root[0].data.viewer.teams[0].session.name
         completed_matches = mr.completed_matches()
-        logger.info(f"Found {len(completed_matches)} completed matches")
-        return completed_matches
+        logger.info(
+            f"Found {len(completed_matches)} completed matches in {session_name} session"
+        )
+        return completed_matches, session_name
 
 
 if __name__ == "__main__":
@@ -106,5 +116,5 @@ if __name__ == "__main__":
 
     api = PoolPlayersAPI()
 
-    completed_matches = api.fetch_completed_matches()
+    completed_matches, session_name = api.fetch_completed_matches()
     # date_list = pydmodels.matches_date_list(completed_matches)
