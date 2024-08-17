@@ -100,7 +100,7 @@ def all_invoices(api: ppapi.PoolPlayersAPI, session):
             yield inv
 
 
-def get_invoices():
+def update_invoices():
     api = ppapi.PoolPlayersAPI()
     dbengine = db.create_engine()
 
@@ -109,6 +109,14 @@ def get_invoices():
         return invoices
 
 
+def get_invoices():
+    dbengine = db.create_engine()
+    with sqlmodel.Session(dbengine) as session:
+        return session.exec(
+            sqlmodel.select(models.Invoice)
+        ).unique().all()
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    get_invoices()
+    update_invoices()

@@ -110,11 +110,3 @@ class PoolPlayersAPI:
         )
         return completed_matches, session_name
 
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-
-    api = PoolPlayersAPI()
-
-    completed_matches, session_name = api.fetch_completed_matches()
-    # date_list = pydmodels.matches_date_list(completed_matches)

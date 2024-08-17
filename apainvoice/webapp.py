@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
-def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
+def render_invoice(invoice: models.Invoice, admin=False) -> list[AnyComponent]:
     components = [
         c.Heading(text=invoice.name, level=2),
         c.Table(
@@ -44,6 +44,13 @@ def landing_page() -> list[AnyComponent]:
 
     return [
         c.Page(components=render_all_invoices()),
+    ]
+
+
+@app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
+def admin() -> list[AnyComponent]:
+    return [
+        c.Page(components=render_all_invoices(admin=True)),
     ]
 
 
