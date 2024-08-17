@@ -180,3 +180,6 @@ class Invoice(SQLModel, table=True):
     )
     matches_hash: str = Field(index=True)
     session_name: str
+
+    def sorted_bills_by_amount(self) -> list[PlayerBill]:
+        return sorted(self.bills, key=lambda bill: bill.amount, reverse=True)

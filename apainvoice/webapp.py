@@ -15,7 +15,7 @@ def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
     components = [
         c.Heading(text=invoice.name, level=2),
         c.Table(
-            data=invoice.bills,
+            data=invoice.sorted_bills_by_amount(),
             columns=[
                 DisplayLookup(field="player_name"),
                 DisplayLookup(field="amount"),
