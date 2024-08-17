@@ -61,10 +61,14 @@ class MatchesResponse(RootModel):
 
 
 # All these classes are for MatchDetails and associated classes
-class Player(SQLModel, table=True):
-    # id: int = Field(default=None, primary_key=True)
-    displayName: str = Field(primary_key=True)
-    bills: list["PlayerBill"] = Relationship(back_populates="player")
+class Player(BaseModel):
+    displayName: str
+
+    @property
+    def first_name(self) -> str:
+        first = self.displayName.split(" ")[0]
+        assert first and first != " "
+        return first
 
 
 class Scores(BaseModel):
@@ -131,12 +135,16 @@ class MatchDetailsResponse(RootModel):
 # --- End MatchDetails and associated classes
 
 
-class MatchesDateListEntry(BaseModel):
+class MatchesDateList(BaseModel):
     date: str
     matches: list[Match]
 
+    @property
+    def matches_hash(self) -> str:
+        return ",".join([str(m.id) for m in self.matches])
 
-def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
+
+def matches_date_list(matches: list[Match]) -> list[MatchesDateList]:
     match_days: dict[str, list[Match]] = {}
     for m in matches:
         date = m.startDate
@@ -144,7 +152,7 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateListEntry]:
             match_days[date] = []
         match_days[date].append(m)
 
-    l = [MatchesDateListEntry(date=d, matches=m) for d, m in match_days.items()]
+    l = [MatchesDateList(date=d, matches=m) for d, m in match_days.items()]
     # Reverse the list so that the most recent dates are first in the list
     return reversed(l)
 
@@ -155,12 +163,11 @@ class PlayerBill(SQLModel, table=True):
     status: str = ""
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
-    # TODO player relationship is not actually used. It might be useful later to find all bills for a player but should it be deleted for now?
-    player: Player = Relationship(back_populates="bills")
-    player_name: int = Field(foreign_key="player.displayName")
+    player_name: str
 
 
 class Invoice(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     bills: list[PlayerBill] = Relationship(back_populates="invoice")
+    matches_hash: str = Field(index=True)

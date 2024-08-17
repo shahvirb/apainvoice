@@ -24,15 +24,21 @@ def player_names(names: list[str] = B64_PLAYERS) -> list[str]:
 
 
 def make_invoice(
-    api: ppapi.PoolPlayersAPI, matchdetails: list[models.MatchDetails]
+    api: ppapi.PoolPlayersAPI, matches_date_list: models.MatchesDateList
 ) -> models.Invoice:
+
+    matchdetails = [api.get_match_details(m.id) for m in matches_date_list.matches]
     assert matchdetails
+    logger.info(
+        f"Making invoice for date {matches_date_list.date} comprising of {len(matches_date_list.matches)} matches"
+    )
+
     fees_sum = 0
     invoice_name = matchdetails[0].startDate
     players: list[models.Player] = []
     players_on_team = player_names()
 
-    # Find the players involved in the matches and calculate fees_sum
+    # Find players involved in matches and calculate fees_sum
     for md in matchdetails:
         assert (
             invoice_name == md.startDate
@@ -53,15 +59,39 @@ def make_invoice(
     for p in players:
         if p.displayName not in bills:
             bills[p.displayName] = models.PlayerBill(
-                amount=single_fee, player_name=p.displayName, player=p
+                amount=single_fee, player_name=p.first_name
             )
         else:
             bills[p.displayName].amount += single_fee
 
-    invoice = models.Invoice(name=invoice_name, bills=list(bills.values()))
-    # TODO shouldn't we also link an invoice to models.MatchDetails ?
+    invoice = models.Invoice(
+        name=invoice_name,
+        bills=list(bills.values()),
+        matches_hash=matches_date_list.matches_hash,
+    )
     return invoice
 
+
+def get_invoices(api: ppapi.PoolPlayersAPI, session):
+    completed = api.fetch_completed_matches()
+    logger.info(f"Queried and found {len(completed)} completed matches")
+    matches_date_list = models.matches_date_list(completed)
+    for mdl in matches_date_list:
+        results = session.exec(
+                sqlmodel.select(models.Invoice).where(
+                    models.Invoice.matches_hash == mdl.matches_hash
+                )
+            ).all()
+        assert len(results) <= 1
+        if results:
+            inv = results[0]
+            logger.info(f"Found existing invoice {inv.name}")
+            yield inv
+        else:
+            inv = make_invoice(api, mdl)
+            session.add(inv)
+            session.commit()
+            yield inv
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
@@ -70,16 +100,4 @@ if __name__ == "__main__":
     dbengine = db.create_engine()
 
     with sqlmodel.Session(dbengine) as session:
-        completed = api.fetch_completed_matches()
-        logger.info(f"Queried and found {len(completed)} completed matches")
-        matches_date_list = models.matches_date_list(completed)
-        for mdl in matches_date_list:
-            match_details = [api.get_match_details(m.id) for m in mdl.matches]
-            logger.info(
-                f"Making invoice for date {mdl.date} comprising of {len(mdl.matches)} matches"
-            )
-            inv = make_invoice(api, match_details)
-
-            session.add(inv)
-            session.commit()
-            exit()
+        invoices = list(get_invoices(api, session))

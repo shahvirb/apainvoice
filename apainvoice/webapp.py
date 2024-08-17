@@ -12,7 +12,7 @@ app = FastAPI()
 
 
 def generate_bill(
-    api: ppapi.PoolPlayersAPI, mdle=models.MatchesDateListEntry
+    api: ppapi.PoolPlayersAPI, mdle=models.MatchesDateList
 ) -> list[AnyComponent]:
     bills = invoice.calculate_bills(api, [m.id for m in mdle.matches])
     logger.info(f"Calculating bills for {len(mdle.matches)} matches on {mdle.date}")
