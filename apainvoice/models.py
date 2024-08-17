@@ -165,7 +165,7 @@ def matches_date_list(matches: list[Match]) -> list[MatchesDateList]:
 
 class PlayerBill(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    amount: int
+    amount: float
     status: str = ""
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
@@ -175,6 +175,8 @@ class PlayerBill(SQLModel, table=True):
 class Invoice(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    bills: list[PlayerBill] = Relationship(back_populates="invoice")
+    bills: list[PlayerBill] = Relationship(
+        back_populates="invoice", sa_relationship_kwargs={"lazy": "joined"}
+    )
     matches_hash: str = Field(index=True)
     session_name: str

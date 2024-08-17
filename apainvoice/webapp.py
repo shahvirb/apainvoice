@@ -1,4 +1,4 @@
-from apainvoice import models, ppapi, invoice
+from apainvoice import models, controller
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
@@ -11,30 +11,27 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
-def generate_bill(
-    api: ppapi.PoolPlayersAPI, mdle=models.MatchesDateList
-) -> list[AnyComponent]:
-    bills = invoice.calculate_bills(api, [m.id for m in mdle.matches])
-    logger.info(f"Calculating bills for {len(mdle.matches)} matches on {mdle.date}")
-    return [
-        c.Heading(text=mdle.date, level=2),
+def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
+    components = [
+        c.Heading(text=invoice.name, level=2),
         c.Table(
-            data=bills,
+            data=invoice.bills,
             columns=[
-                DisplayLookup(field="name"),
+                DisplayLookup(field="player_name"),
                 DisplayLookup(field="amount"),
             ],
         ),
     ]
+    return components
 
 
-def generate_bills() -> list[AnyComponent]:
-    api = ppapi.PersistentDataAPI()
-    completed = api.fetch_completed_matches()
-    date_list = models.matches_date_list(completed)
+def render_all_invoices() -> list[AnyComponent]:
+    invoices = controller.get_invoices()
+    logger.debug(f"Got {len(invoices)} invoices")
+    # return [c.Heading(text="debug remove me", level=1)]
     components = []
-    for mdle in date_list:
-        components.extend(generate_bill(api, mdle))
+    for inv in invoices:
+        components.extend(render_invoice(inv))
     return components
 
 
@@ -46,7 +43,7 @@ def landing_page() -> list[AnyComponent]:
     """
 
     return [
-        c.Page(components=generate_bills()),
+        c.Page(components=render_all_invoices()),
     ]
 
 
@@ -56,8 +53,13 @@ async def html_landing() -> HTMLResponse:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     log_config = uvicorn.config.LOGGING_CONFIG
+    log_config["loggers"]["uvicorn"]["level"] = "DEBUG"
+    log_config["loggers"]["uvicorn.error"]["level"] = "DEBUG"
+    log_config["loggers"]["uvicorn.access"]["level"] = "DEBUG"
+    log_config["disable_existing_loggers"] = "false"
+
     uvicorn.run(
         "webapp:app", log_config=log_config, host="0.0.0.0", port=8001, reload=True
     )

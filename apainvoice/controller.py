@@ -75,15 +75,19 @@ def make_invoice(
     return invoice
 
 
-def get_invoices(api: ppapi.PoolPlayersAPI, session):
+def all_invoices(api: ppapi.PoolPlayersAPI, session):
     completed, session_name = api.fetch_completed_matches()
     matches_date_list = models.matches_date_list(completed)
     for mdl in matches_date_list:
-        results = session.exec(
-            sqlmodel.select(models.Invoice).where(
-                models.Invoice.matches_hash == mdl.matches_hash
+        results = (
+            session.exec(
+                sqlmodel.select(models.Invoice).where(
+                    models.Invoice.matches_hash == mdl.matches_hash
+                )
             )
-        ).all()
+            .unique()
+            .all()
+        )
         assert len(results) <= 1
         if results:
             inv = results[0]
@@ -96,11 +100,15 @@ def get_invoices(api: ppapi.PoolPlayersAPI, session):
             yield inv
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-
+def get_invoices():
     api = ppapi.PoolPlayersAPI()
     dbengine = db.create_engine()
 
     with sqlmodel.Session(dbengine) as session:
-        invoices = list(get_invoices(api, session))
+        invoices = list(all_invoices(api, session))
+        return invoices
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
+    get_invoices()
