@@ -1,4 +1,4 @@
-from pydantic import BaseModel, RootModel
+from pydantic import BaseModel, RootModel, computed_field
 from sqlmodel import Field, SQLModel, Relationship
 from typing import Any, Generator, Optional
 import datetime
@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 def date(dt: datetime) -> str:
     return dt.strftime(r"%Y-%m-%d")
 
+def first_word(s):
+    return s.split(" ")[0]
 
 # All these classes are for MatchesResponse being turned into a list[Match]
 class Match(BaseModel):
@@ -72,9 +74,7 @@ class Player(BaseModel):
 
     @property
     def first_name(self) -> str:
-        first = self.displayName.split(" ")[0]
-        assert first and first != " "
-        return first
+        return first_word(self.displayName)
 
 
 class Scores(BaseModel):
@@ -170,6 +170,19 @@ class PlayerBill(SQLModel, table=True):
     invoice: "Invoice" = Relationship(back_populates="bills")
     invoice_id: int = Field(foreign_key="invoice.id")
     player_name: str
+    
+    @computed_field
+    @property
+    def currency_str(self) -> str:
+        v = self.amount
+        if self.amount.is_integer():
+            v = int(v)
+        return f"${v}"
+    
+    @computed_field
+    @property
+    def first_name(self) -> str:
+        return first_word(self.player_name)
 
 
 class Invoice(SQLModel, table=True):
@@ -180,6 +193,3 @@ class Invoice(SQLModel, table=True):
     )
     matches_hash: str = Field(index=True)
     session_name: str
-
-    def sorted_bills_by_amount(self) -> list[PlayerBill]:
-        return sorted(self.bills, key=lambda bill: bill.amount, reverse=True)

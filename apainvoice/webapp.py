@@ -15,10 +15,10 @@ def render_invoice(invoice: models.Invoice) -> list[AnyComponent]:
     components = [
         c.Heading(text=invoice.name, level=2),
         c.Table(
-            data=invoice.sorted_bills_by_amount(),
+            data=sorted(invoice.bills, key=lambda bill: bill.amount, reverse=True),
             columns=[
-                DisplayLookup(field="player_name"),
-                DisplayLookup(field="amount"),
+                DisplayLookup(field="first_name", title="Name"),
+                DisplayLookup(field="currency_str", title="Amount"),
             ],
         ),
     ]

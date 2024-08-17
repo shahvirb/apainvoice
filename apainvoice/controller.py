@@ -61,7 +61,7 @@ def make_invoice(
     for p in players:
         if p.displayName not in bills:
             bills[p.displayName] = models.PlayerBill(
-                amount=single_fee, player_name=p.first_name
+                amount=single_fee, player_name=p.displayName
             )
         else:
             bills[p.displayName].amount += single_fee
