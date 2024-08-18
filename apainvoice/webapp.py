@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
-def render_invoice(invoice: models.Invoice, admin=False) -> list[AnyComponent]:
+def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComponent]:
     components = [
         c.Heading(text=invoice.name, level=2),
         c.Table(
@@ -26,12 +26,12 @@ def render_invoice(invoice: models.Invoice, admin=False) -> list[AnyComponent]:
     return components
 
 
-def render_all_invoices() -> list[AnyComponent]:
+def render_all_invoices(admin: bool) -> list[AnyComponent]:
     invoices = controller.get_invoices()
     logger.debug(f"Got {len(invoices)} invoices")
     components = []
     for inv in invoices:
-        components.extend(render_invoice(inv))
+        components.extend(render_invoice(inv, admin))
     return components
 
 
