@@ -40,9 +40,8 @@ def landing_page() -> list[AnyComponent]:
     `/api` is the endpoint the frontend will connect to
     when a user visits `/` to fetch components to render.
     """
-
     return [
-        c.Page(components=render_all_invoices()),
+        c.Page(components=render_all_invoices(admin=False)),
     ]
 
 
@@ -71,5 +70,5 @@ if __name__ == "__main__":
     log_config["disable_existing_loggers"] = "false"
 
     uvicorn.run(
-        "webapp:app", log_config=log_config, host="0.0.0.0", port=8001, reload=True
+        "webapp:app", log_config=log_config, host="0.0.0.0", port=8000, reload=True
     )

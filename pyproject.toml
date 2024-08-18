@@ -7,18 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-requests = "^2.32.3"
-fastui = "^0.6.0"
 fastapi = "^0.112.0"
-uvicorn = "^0.30.5"
+fastui = "^0.6.0"
+requests = "^2.32.3"
 sqlmodel = "^0.0.21"
 
-[tool.poetry.scripts]
-webserver = "uvicorn webapp:app --reload"
-
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.11.1"
 black = "^24.8.0"
+gunicorn = "^23.0.0"
+mypy = "^1.11.1"
+uvicorn = "^0.30.5"
 
 [tool.poetry.group.test.dependencies]  
 pytest = "^8.3.2"
