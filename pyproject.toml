@@ -17,8 +17,6 @@ black = "^24.8.0"
 gunicorn = "^23.0.0"
 mypy = "^1.11.1"
 uvicorn = "^0.30.5"
-
-[tool.poetry.group.test.dependencies]  
 pytest = "^8.3.2"
 
 [build-system]
