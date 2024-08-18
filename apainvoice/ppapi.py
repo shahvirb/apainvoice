@@ -109,4 +109,3 @@ class PoolPlayersAPI:
             f"Found {len(completed_matches)} completed matches in {session_name} session"
         )
         return completed_matches, session_name
-

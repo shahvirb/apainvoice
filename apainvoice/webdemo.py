@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 
 app = FastAPI()
 
+
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
 def users_table() -> list[AnyComponent]:
     """
@@ -18,11 +19,12 @@ def users_table() -> list[AnyComponent]:
     return [
         c.Page(  # Page provides a basic container for components
             components=[
-                c.Heading(text='Default page', level=2),  # renders `<h2>Users</h2>`
+                c.Heading(text="Default page", level=2),  # renders `<h2>Users</h2>`
             ]
         ),
     ]
-    
+
+
 @app.get("/api/test/", response_model=FastUI, response_model_exclude_none=True)
 def test_table() -> list[AnyComponent]:
     """
@@ -32,13 +34,13 @@ def test_table() -> list[AnyComponent]:
     return [
         c.Page(  # Page provides a basic container for components
             components=[
-                c.Heading(text='another page', level=2),  # renders `<h2>Users</h2>`
+                c.Heading(text="another page", level=2),  # renders `<h2>Users</h2>`
             ]
         ),
     ]
 
 
-@app.get('/{path}')
+@app.get("/{path}")
 async def html_landing() -> HTMLResponse:
     """Simple HTML page which serves the React app, comes last as it matches all paths."""
-    return HTMLResponse(prebuilt_html(title='FastUI Demo'))
+    return HTMLResponse(prebuilt_html(title="FastUI Demo"))

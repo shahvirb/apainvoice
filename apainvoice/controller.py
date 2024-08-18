@@ -112,9 +112,7 @@ def update_invoices():
 def get_invoices():
     dbengine = db.create_engine()
     with sqlmodel.Session(dbengine) as session:
-        return session.exec(
-            sqlmodel.select(models.Invoice)
-        ).unique().all()
+        return session.exec(sqlmodel.select(models.Invoice)).unique().all()
 
 
 if __name__ == "__main__":

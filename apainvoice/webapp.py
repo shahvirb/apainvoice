@@ -4,7 +4,6 @@ from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
 import logging
-import uvicorn
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +59,11 @@ async def html_landing() -> HTMLResponse:
 
 
 if __name__ == "__main__":
+    import uvicorn
+
     logging.basicConfig(level=logging.DEBUG)
+
+    # TODO None of this below works to set the log level
     log_config = uvicorn.config.LOGGING_CONFIG
     log_config["loggers"]["uvicorn"]["level"] = "DEBUG"
     log_config["loggers"]["uvicorn.error"]["level"] = "DEBUG"
