@@ -1,7 +1,7 @@
 # https://github.com/orgs/python-poetry/discussions/1879?sort=top#discussioncomment-216865
 
 # `python-base` sets up all our shared environment variables
-FROM python:3.11-slim as python-base
+FROM python:3.11-slim AS python-base
 
     # python
 ENV PYTHONUNBUFFERED=1 \
@@ -35,7 +35,7 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 
 # `builder-base` stage is used to build deps + create our virtual environment
-FROM python-base as builder-base
+FROM python-base AS builder-base
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         # deps for installing poetry
@@ -49,14 +49,13 @@ RUN curl -sSL https://install.python-poetry.org | python
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
-COPY ./apainvoice/ ./apainvoice
+# Notice that no source code is copied into the container. No need to run poetry install with --no-root because of this
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
 RUN poetry install --without=dev
 
-
 # `development` image is used during development / testing
-FROM python-base as development
+FROM python-base AS development
 ENV FASTAPI_ENV=development
 WORKDIR $PYSETUP_PATH
 
@@ -64,18 +63,17 @@ WORKDIR $PYSETUP_PATH
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
-# quicker install as runtime deps are already installed
+# quicker install AS runtime deps are already installed
 RUN poetry install
 
-# will become mountpoint of our code
-WORKDIR $PYSETUP_PATH/apainvoice
+WORKDIR /apainvoice
 
 EXPOSE 8000
-CMD ["uvicorn", "--reload", "webapp:app"]
+CMD ["uvicorn", "--reload", "webdemo:app", "--host", "0.0.0.0"]
 
 
 # `production` image used for runtime
-# FROM python-base as production
+# FROM python-base AS production
 # ENV FASTAPI_ENV=production
 # COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # COPY ./apainvoice /apainvoice/
