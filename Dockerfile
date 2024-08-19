@@ -57,6 +57,10 @@ RUN poetry install --without=dev
 # `development` image is used during development / testing
 FROM python-base AS development
 ENV FASTAPI_ENV=development
+# Let's set PYTHONPATH to root dir because the source code folder /apainvoice is located in the root
+# and we want python to find that package so that apainvoice scripts can simply be invoked with the -m flag
+ENV PYTHONPATH="/:" 
+
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
@@ -69,7 +73,7 @@ RUN poetry install
 WORKDIR /apainvoice
 
 EXPOSE 8000
-CMD ["uvicorn", "--reload", "webdemo:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "--reload", "webapp:app", "--host", "0.0.0.0"]
 
 
 # `production` image used for runtime
