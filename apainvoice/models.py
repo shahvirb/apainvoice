@@ -195,3 +195,8 @@ class Invoice(SQLModel, table=True):
     )
     matches_hash: str = Field(index=True)
     session_name: str
+
+
+class MetadataRefresh(SQLModel, table=True):
+    id: int = Field(default=0, primary_key=True)
+    last_refresh: datetime.datetime

@@ -2,6 +2,7 @@ from apainvoice import db, ppapi, models
 import logging
 import sqlmodel
 import base64
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -106,13 +107,32 @@ def update_invoices():
 
     with sqlmodel.Session(dbengine) as session:
         invoices = list(all_invoices(api, session))
-        return invoices
+        # return invoices
+
+        results = session.exec(sqlmodel.select(models.MetadataRefresh)).all()
+        meta: models.MetadataRefresh
+        if not results:
+            meta = models.MetadataRefresh(id=0, last_refresh=datetime.datetime.now())
+        else:
+            assert len(results) == 1
+            meta = results[0]
+            logger.info(f"Previous data update: {meta.last_refresh}")
+            meta.last_refresh = datetime.datetime.now()
+        session.add(meta)
+        session.commit()
+        logger.info(f"Data updated at: {meta.last_refresh}")
 
 
 def get_invoices():
     dbengine = db.create_engine()
     with sqlmodel.Session(dbengine) as session:
         return session.exec(sqlmodel.select(models.Invoice)).unique().all()
+
+
+def get_metadata() -> models.MetadataRefresh:
+    dbengine = db.create_engine()
+    with sqlmodel.Session(dbengine) as session:
+        return session.exec(sqlmodel.select(models.MetadataRefresh)).one()
 
 
 if __name__ == "__main__":
