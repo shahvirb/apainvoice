@@ -135,6 +135,23 @@ def get_metadata() -> models.MetadataRefresh:
         return session.exec(sqlmodel.select(models.MetadataRefresh)).one()
 
 
+def get_bill(id: int) -> models.PlayerBill:
+    dbengine = db.create_engine()
+    with sqlmodel.Session(dbengine) as session:
+        return session.exec(
+            sqlmodel.select(models.PlayerBill).where(models.PlayerBill.id == id)
+        ).one()
+
+
+def set_bill(bill: models.PlayerBill) -> bool:
+    dbengine = db.create_engine()
+    with sqlmodel.Session(dbengine) as session:
+        session.add(bill)
+        session.commit()
+        return True
+    return False
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     update_invoices()

@@ -4,7 +4,13 @@ from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
 from fastui.events import GoToEvent, PageEvent
-from fastui.forms import FormFile, SelectSearchResponse, Textarea, fastui_form
+from fastui.forms import (
+    FormFile,
+    SelectSearchResponse,
+    Textarea,
+    fastui_form,
+    SelectOptions,
+)
 import logging
 import typing
 
@@ -17,7 +23,7 @@ from pydantic import BaseModel, RootModel, Field, computed_field
 
 
 class TestFormModel(BaseModel):
-    paid: bool | None = Field(None, title="Paid", json_schema_extra={"mode": "switch"})
+    mpaid: bool | None = Field(None, title="Paid", json_schema_extra={"mode": "switch"})
 
 
 def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComponent]:
@@ -26,13 +32,6 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
         DisplayLookup(field="currency_str", title="Amount"),
         DisplayLookup(field="status"),
     ]
-    # if admin:
-    #     table_cols.append(
-    #         DisplayLookup(
-    #             field="status",
-    #             title="Paid Form",
-    #         )
-    #     )
 
     components = [
         c.Heading(text=invoice.name, level=2),
@@ -43,15 +42,21 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
     ]
 
     if admin:
-        components.extend(
-            [
-                c.ModelForm(
-                    model=TestFormModel,
-                    submit_url="/api/forms/testpost",
-                    submit_on_change=True,
+        for bill in invoice.bills:
+            match bill.status:
+                case "paid":
+                    next_state = "reset"
+                case "":
+                    next_state = "paid"
+
+            components.append(
+                c.Button(
+                    text=f"Set {bill.first_name} to {next_state}",
+                    on_click=GoToEvent(
+                        url=f"/admin/setbillstatus/{bill.id}/{next_state}"
+                    ),
                 )
-            ],
-        )
+            )
 
     return components
 
@@ -92,9 +97,7 @@ def admin_invoices() -> list[AnyComponent]:
 @app.get(
     "/api/admin/refreshdata", response_model=FastUI, response_model_exclude_none=True
 )
-async def test_form_post(
-    form: typing.Annotated[TestFormModel, fastui_form(TestFormModel)]
-):
+async def refresh(form: typing.Annotated[TestFormModel, fastui_form(TestFormModel)]):
     controller.update_invoices()
     metadata = controller.get_metadata()
     return [
@@ -103,6 +106,19 @@ async def test_form_post(
             text="Back to Admin Console", on_click=GoToEvent(url="/admin/console")
         ),
     ]
+
+
+@app.get(
+    "/api/admin/setbillstatus/{billid}/{status}",
+    response_model=FastUI,
+    response_model_exclude_none=True,
+)
+async def set_bill_status(billid: int, status: str) -> list[AnyComponent]:
+    player_bill = controller.get_bill(billid)
+    player_bill.status = status if status != "reset" else ""
+    controller.set_bill(player_bill)
+    comp = [c.Paragraph(text=f"set bill billid={billid} status={status}")]
+    return [c.Page(components=comp)]
 
 
 @app.get("/{path:path}")
