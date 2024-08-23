@@ -46,12 +46,15 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
             match bill.status:
                 case "paid":
                     next_state = "reset"
+                    style = "warning"
                 case "":
                     next_state = "paid"
+                    style = None
 
             components.append(
                 c.Button(
-                    text=f"Set {bill.first_name} to {next_state}",
+                    text=f"{bill.first_name} -> {next_state}",
+                    named_style=style,
                     on_click=GoToEvent(
                         url=f"/admin/setbillstatus/{bill.id}/{next_state}"
                     ),
@@ -117,8 +120,7 @@ async def set_bill_status(billid: int, status: str) -> list[AnyComponent]:
     player_bill = controller.get_bill(billid)
     player_bill.status = status if status != "reset" else ""
     controller.set_bill(player_bill)
-    comp = [c.Paragraph(text=f"set bill billid={billid} status={status}")]
-    return [c.Page(components=comp)]
+    return admin_invoices()
 
 
 @app.get("/{path:path}")
