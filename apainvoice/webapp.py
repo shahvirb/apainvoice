@@ -46,7 +46,7 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
             match bill.status:
                 case "paid":
                     next_state = "reset"
-                    style = "warning"
+                    style = "secondary"
                 case "":
                     next_state = "paid"
                     style = None
@@ -60,6 +60,14 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
                     ),
                 )
             )
+
+        components.append(
+            c.Button(
+                text=f"All players -> paid",
+                named_style="warning",
+                on_click=GoToEvent(url=f"/admin/setinvoicestatus/{invoice.id}/paid"),
+            )
+        )
 
     return components
 
@@ -119,7 +127,21 @@ async def refresh(form: typing.Annotated[TestFormModel, fastui_form(TestFormMode
 async def set_bill_status(billid: int, status: str) -> list[AnyComponent]:
     player_bill = controller.get_bill(billid)
     player_bill.status = status if status != "reset" else ""
-    controller.set_bill(player_bill)
+    controller.write_db(player_bill)
+    return admin_invoices()
+
+
+@app.get(
+    "/api/admin/setinvoicestatus/{invid}/{status}",
+    response_model=FastUI,
+    response_model_exclude_none=True,
+)
+async def set_bill_status(invid: int, status: str) -> list[AnyComponent]:
+    invoice = controller.get_invoice(invid)
+    for bill in invoice.bills:
+        bill.status = status if status != "reset" else ""
+
+    controller.write_db(invoice)
     return admin_invoices()
 
 

@@ -138,9 +138,18 @@ def get_bill(id: int) -> models.PlayerBill:
         ).one()
 
 
-def set_bill(bill: models.PlayerBill) -> bool:
+def get_invoice(id: int) -> models.Invoice:
     with sqlmodel.Session(db.create_engine()) as session:
-        session.add(bill)
+        return (
+            session.exec(sqlmodel.select(models.Invoice).where(models.Invoice.id == id))
+            .unique()
+            .one()
+        )
+
+
+def write_db(x: models.PlayerBill | models.Invoice) -> bool:
+    with sqlmodel.Session(db.create_engine()) as session:
+        session.add(x)
         session.commit()
         return True
     return False
