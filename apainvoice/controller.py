@@ -6,7 +6,6 @@ import datetime
 
 logger = logging.getLogger(__name__)
 
-
 # Obfucsate player names for basic privacy in public code repos
 B64_PLAYERS = [
     "TWFkaGF2IFNoYXJtYQ==",  # Ma Sh
@@ -103,9 +102,8 @@ def all_invoices(api: ppapi.PoolPlayersAPI, session):
 
 def update_invoices():
     api = ppapi.PoolPlayersAPI()
-    dbengine = db.create_engine()
 
-    with sqlmodel.Session(dbengine) as session:
+    with sqlmodel.Session(db.create_engine()) as session:
         invoices = list(all_invoices(api, session))
         # return invoices
 
@@ -124,28 +122,24 @@ def update_invoices():
 
 
 def get_invoices():
-    dbengine = db.create_engine()
-    with sqlmodel.Session(dbengine) as session:
+    with sqlmodel.Session(db.create_engine()) as session:
         return session.exec(sqlmodel.select(models.Invoice)).unique().all()
 
 
 def get_metadata() -> models.MetadataRefresh:
-    dbengine = db.create_engine()
-    with sqlmodel.Session(dbengine) as session:
+    with sqlmodel.Session(db.create_engine()) as session:
         return session.exec(sqlmodel.select(models.MetadataRefresh)).one()
 
 
 def get_bill(id: int) -> models.PlayerBill:
-    dbengine = db.create_engine()
-    with sqlmodel.Session(dbengine) as session:
+    with sqlmodel.Session(db.create_engine()) as session:
         return session.exec(
             sqlmodel.select(models.PlayerBill).where(models.PlayerBill.id == id)
         ).one()
 
 
 def set_bill(bill: models.PlayerBill) -> bool:
-    dbengine = db.create_engine()
-    with sqlmodel.Session(dbengine) as session:
+    with sqlmodel.Session(db.create_engine()) as session:
         session.add(bill)
         session.commit()
         return True
