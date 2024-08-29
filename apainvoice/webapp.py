@@ -73,7 +73,7 @@ def render_invoice(invoice: models.Invoice, admin: bool = False) -> list[AnyComp
 
 
 def render_all_invoices(admin: bool) -> list[AnyComponent]:
-    invoices = controller.get_invoices()
+    invoices = controller.sort_most_recent(controller.get_invoices())
     logger.debug(f"Got {len(invoices)} invoices")
     components = []
     for inv in invoices:

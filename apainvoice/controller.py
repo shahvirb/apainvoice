@@ -126,6 +126,10 @@ def get_invoices():
         return session.exec(sqlmodel.select(models.Invoice)).unique().all()
 
 
+def sort_most_recent(invoices: list[models.Invoice]):
+    return sorted(invoices, key=lambda inv: inv.name, reverse=True)
+
+
 def get_metadata() -> models.MetadataRefresh:
     with sqlmodel.Session(db.create_engine()) as session:
         return session.exec(sqlmodel.select(models.MetadataRefresh)).one()
