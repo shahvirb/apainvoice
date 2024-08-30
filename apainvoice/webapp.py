@@ -1,6 +1,6 @@
 from apainvoice import models, controller
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
 from fastui.events import GoToEvent, PageEvent
@@ -11,10 +11,13 @@ from fastui.forms import (
     fastui_form,
     SelectOptions,
 )
+import datetime
 import logging
 import typing
 
 logger = logging.getLogger(__name__)
+
+COOKIE_EXPIRY_HRS = 24
 
 app = FastAPI()
 
@@ -79,6 +82,38 @@ def render_all_invoices(admin: bool) -> list[AnyComponent]:
     for inv in invoices:
         components.extend(render_invoice(inv, admin))
     return components
+
+
+@app.get("/outpost.goauthentik.io/callback")
+async def auth_callback(
+    request: Request,
+    X_authentik_auth_callback: typing.Optional[bool] = None,
+    code: typing.Optional[str] = None,
+    state: typing.Optional[str] = None,
+):
+    # response = RedirectResponse(url="/")
+    response = RedirectResponse(url="/show-cookies")
+    response.set_cookie(
+        key="username",
+        value=request.headers.get("X-Authentik-Username"),
+        max_age=datetime.timedelta(hours=COOKIE_EXPIRY_HRS),
+    )
+    response.set_cookie(
+        key="code", value=code, max_age=datetime.timedelta(hours=COOKIE_EXPIRY_HRS)
+    )
+    response.set_cookie(
+        key="state", value=state, max_age=datetime.timedelta(hours=COOKIE_EXPIRY_HRS)
+    )
+    return response
+
+
+@app.get("/api/show-cookies", response_model=FastUI, response_model_exclude_none=True)
+def show_cookies(request: Request) -> list[AnyComponent]:
+    code = request.cookies.get("code")
+    return [
+        c.Paragraph(text=f"username: {request.cookies.get('username')}"),
+        c.Paragraph(text=f"code: {code}"),
+    ]
 
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
@@ -163,5 +198,5 @@ if __name__ == "__main__":
     log_config["disable_existing_loggers"] = "false"
 
     uvicorn.run(
-        "webapp:app", log_config=log_config, host="0.0.0.0", port=8000, reload=True
+        "webapp:app", log_config=log_config, host="192.168.1.38", port=8000, reload=True
     )
