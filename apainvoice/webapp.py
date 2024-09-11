@@ -1,6 +1,6 @@
-from apainvoice import models, controller
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from apainvoice import models, controller, auth
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
 from fastui.events import GoToEvent, PageEvent
@@ -11,37 +11,18 @@ from fastui.forms import (
     fastui_form,
     SelectOptions,
 )
-from authlib.integrations.starlette_client import OAuth
-from authlib.jose import jwt
 from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
 import logging
 import typing
-import requests
 
 logger = logging.getLogger(__name__)
 
-COOKIE_EXPIRY_HRS = 24
-
-app = FastAPI()
-app.add_middleware(SessionMiddleware, secret_key="some-random-string")
 config = Config(".env")
-oauth = OAuth(config)
+app = FastAPI()
+app.include_router(auth.router)
+app.add_middleware(SessionMiddleware, secret_key=config("MIDDLEWARE_SECRET"))
 
-oauth.register(
-    access_token_params=None,
-    access_token_url=config("AUTHENTIK_TOKEN_URL"),
-    authorize_params=None,
-    authorize_url=config("AUTHENTIK_AUTHORIZE_URL"),
-    client_id=config("AUTHENTIK_CLIENT_ID"),
-    client_kwargs={"scope": "openid profile email"},
-    client_secret=config("AUTHENTIK_CLIENT_SECRET"),
-    name="authentik",
-    redirect_uri=config("AUTHENTIK_REDIRECT_URI"),
-    server_metadata_url=config("AUTHENTIK_CONFIG_URL"),
-    userinfo_endpoint=config("AUTHENTIK_USERINFO_URL"),
-)
-# TODO we shouldn't need to register so much given that we're providing the metadata URL https://docs.authlib.org/en/latest/client/frameworks.html#parsing-id-token
 
 # TODO should we import pydantic here?
 from pydantic import BaseModel, RootModel, Field, computed_field
@@ -104,43 +85,6 @@ def render_all_invoices(admin: bool) -> list[AnyComponent]:
     for inv in invoices:
         components.extend(render_invoice(inv, admin))
     return components
-
-
-@app.get("/login")
-async def login(request: Request):
-    return await oauth.authentik.authorize_redirect(
-        request, config("AUTHENTIK_REDIRECT_URI")
-    )
-
-
-@app.get("/authentik/callback")
-async def auth_callback(
-    request: Request,
-):
-    token = await oauth.authentik.authorize_access_token(request)
-
-    response = RedirectResponse(url="/loggedin")
-    response.set_cookie(
-        key="access_token",
-        value=token["access_token"],
-        httponly=True,  # Prevent JavaScript from accessing this cookie
-        secure=True,  # Ensure the cookie is only sent over HTTPS
-        samesite="Lax",  # Lax or Strict for CSRF protection
-    )
-    # TODO what about the expiry of that cookie?
-    return response
-
-
-@app.get("/api/loggedin", response_model=FastUI, response_model_exclude_none=True)
-async def logged_in(
-    request: Request,
-) -> list[AnyComponent]:
-    access_token = request.cookies.get("access_token")
-    jwks = requests.get(config("AUTHENTIK_JWKS_URL")).json()
-    decoded = jwt.decode(access_token, jwks["keys"][0])
-    return [
-        c.Paragraph(text=f"username: {decoded['preferred_username']}"),
-    ]
 
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
