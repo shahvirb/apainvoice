@@ -1,0 +1,32 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  default:
+    "()": uvicorn.logging.DefaultFormatter
+  access:
+    "()": uvicorn.logging.AccessFormatter
+handlers:
+  default:
+    class: rich.logging.RichHandler
+    formatter: default
+    rich_tracebacks: True
+  access:
+    class: rich.logging.RichHandler
+    formatter: access
+    rich_tracebacks: True
+loggers:
+  uvicorn.error:
+    level: INFO
+    handlers:
+      - default
+    propagate: no
+  uvicorn.access:
+    level: INFO
+    handlers:
+      - access
+    propagate: no
+root:
+  level: DEBUG
+  handlers:
+    - default
+  propagate: no

@@ -217,15 +217,10 @@ async def default_route() -> HTMLResponse:
 if __name__ == "__main__":
     import uvicorn
 
-    logging.basicConfig(level=logging.DEBUG)
-
-    # TODO None of this below works to set the log level
-    log_config = uvicorn.config.LOGGING_CONFIG
-    log_config["loggers"]["uvicorn"]["level"] = "DEBUG"
-    log_config["loggers"]["uvicorn.error"]["level"] = "DEBUG"
-    log_config["loggers"]["uvicorn.access"]["level"] = "DEBUG"
-    log_config["disable_existing_loggers"] = "false"
-
     uvicorn.run(
-        "webapp:app", log_config=log_config, host="192.168.1.38", port=8000, reload=True
+        "webapp:app",
+        log_config="log_conf.yaml",
+        host="192.168.1.38",
+        port=8000,
+        reload=True,
     )
