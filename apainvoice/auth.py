@@ -1,6 +1,6 @@
 from authlib.integrations.starlette_client import OAuth
 from authlib.jose import jwt, errors
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Query
 from fastapi.responses import RedirectResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from starlette.config import Config
@@ -31,19 +31,22 @@ oauth.register(
 
 
 @router.get("/login")
-async def login(request: Request):
+async def login(
+    request: Request,
+    next: str = Query(default="/loggedin", description="Return path after login"),
+):
     return await oauth.authentik.authorize_redirect(
-        request, config("AUTHENTIK_REDIRECT_URI")
+        request, f'{config("APP_URL")}/auth/callback?next={next}'
     )
 
 
-@router.get("/authentik/callback")
+@router.get("/auth/callback")
 async def auth_callback(
-    request: Request,
+    request: Request, next: str = Query(description="Return path after login")
 ):
     token = await oauth.authentik.authorize_access_token(request)
 
-    response = RedirectResponse(url="/loggedin")
+    response = RedirectResponse(url=next)
     response.set_cookie(
         key="access_token",
         value=token["access_token"],
@@ -55,18 +58,29 @@ async def auth_callback(
     return response
 
 
+def get_jwt_claims(request: Request):
+    access_token = request.cookies.get("access_token")
+    # TODO what if there's no access_token at all?
+    jwks = requests.get(config("AUTHENTIK_JWKS_URL")).json()
+
+    try:
+        claims = jwt.decode(access_token, jwks["keys"][0])
+        claims.validate()
+    except errors.ExpiredTokenError as e:
+        logger.debug("JWT has expired")
+        raise e
+    return claims
+
+
 @router.get("/api/loggedin", response_model=FastUI, response_model_exclude_none=True)
 async def logged_in(
     request: Request,
 ) -> list[AnyComponent]:
-    access_token = request.cookies.get("access_token")
-    jwks = requests.get(config("AUTHENTIK_JWKS_URL")).json()
-    claims = jwt.decode(access_token, jwks["keys"][0])
     try:
-        claims.validate()
+        claims = get_jwt_claims(request)
     except errors.ExpiredTokenError as e:
-        logger.debug(f"JWT has expired")
         return RedirectResponse(url="/login")
+
     return [
         c.Paragraph(text=f"username: {claims['preferred_username']}"),
     ]
