@@ -105,9 +105,10 @@ def admin_console() -> list[AnyComponent]:
 
 @app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
 def admin_invoices() -> list[AnyComponent]:
-    return [
+    components = [
         c.Page(components=render_all_invoices(admin=True)),
     ]
+    return default_page(components)
 
 
 @app.get(
@@ -118,12 +119,13 @@ async def refresh(
 ) -> list[AnyComponent]:
     controller.update_invoices()
     metadata = controller.get_metadata()
-    return [
+    components = [
         c.Paragraph(text=f"Refresh complete: {metadata.last_refresh}"),
         c.Button(
             text="Back to Admin Console", on_click=GoToEvent(url="/admin/console")
         ),
     ]
+    return default_page(components)
 
 
 @app.get(
@@ -165,6 +167,11 @@ def default_page(
                     components=[c.Text(text="Login")],
                     on_click=GoToEvent(url="/login"),
                     # active='startswith:/auth',
+                ),
+                c.Link(
+                    components=[c.Text(text="Admin Console")],
+                    on_click=GoToEvent(url="/admin/console"),
+                    active='/admin/console',
                 ),
                 c.Link(
                     components=[c.Text(text="Logout")],
