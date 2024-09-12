@@ -89,19 +89,18 @@ def render_all_invoices(admin: bool) -> list[AnyComponent]:
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
 def landing_page() -> list[AnyComponent]:
-    return [
-        c.Page(components=render_all_invoices(admin=False)),
-    ]
+    return default_page(render_all_invoices(admin=False))
 
 
 @app.get("/api/admin/console", response_model=FastUI, response_model_exclude_none=True)
 def admin_console() -> list[AnyComponent]:
     metadata = controller.get_metadata()
-    return [
+    components = [
         c.Heading(text="Admin Console", level=1),
         c.Paragraph(text=f"Data last refreshed: {metadata.last_refresh}"),
         c.Button(text="Refresh Data", on_click=GoToEvent(url="/admin/refreshdata")),
     ]
+    return default_page(components)
 
 
 @app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
@@ -151,6 +150,46 @@ async def set_bill_status(invid: int, status: str) -> list[AnyComponent]:
 
     controller.write_db(invoice)
     return admin_invoices()
+
+
+def default_page(
+    components: list[AnyComponent], title: str = "APA Invoice"
+) -> list[AnyComponent]:
+    return [
+        c.PageTitle(text=f"{title}"),
+        c.Navbar(
+            title="Home",
+            title_event=GoToEvent(url="/"),
+            start_links=[
+                c.Link(
+                    components=[c.Text(text="Login")],
+                    on_click=GoToEvent(url="/login"),
+                    # active='startswith:/auth',
+                ),
+                c.Link(
+                    components=[c.Text(text="Logout")],
+                    on_click=GoToEvent(url="/logout"),
+                    # active='startswith:/auth',
+                ),
+            ],
+        ),
+        c.Page(
+            components=components
+            # components=[
+            #     *((c.Heading(text=title),) if title else ()),
+            #     *components,
+            # ],
+        ),
+        c.Footer(
+            extra_text="v0.1",
+            links=[
+                c.Link(
+                    components=[c.Text(text="Github")],
+                    on_click=GoToEvent(url="https://github.com/shahvirb/apainvoice"),
+                ),
+            ],
+        ),
+    ]
 
 
 @app.get("/{path:path}")

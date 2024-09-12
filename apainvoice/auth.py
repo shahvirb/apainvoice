@@ -23,7 +23,7 @@ oauth.register(
     client_kwargs={"scope": "openid profile email"},
     client_secret=config("AUTHENTIK_CLIENT_SECRET"),
     name="authentik",
-    redirect_uri=config("AUTHENTIK_REDIRECT_URI"),
+    # redirect_uri=config("AUTHENTIK_REDIRECT_URI"),
     server_metadata_url=config("AUTHENTIK_CONFIG_URL"),
     userinfo_endpoint=config("AUTHENTIK_USERINFO_URL"),
 )
