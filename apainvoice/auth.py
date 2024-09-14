@@ -29,6 +29,23 @@ oauth.register(
 )
 # TODO we shouldn't need to register so much given that we're providing the metadata URL https://docs.authlib.org/en/latest/client/frameworks.html#parsing-id-token
 
+def revoke_access_token(access_token):
+    revocation_endpoint = config("AUTHENTIK_REVOCATION_URL")
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    data = {
+        'token': access_token,
+        'token_type_hint': 'access_token',  # or 'refresh_token' if you're revoking a refresh token
+    }
+
+    response = requests.post(revocation_endpoint, headers=headers, data=data)
+
+    if response.status_code == 200:
+        print("Token revoked successfully.")
+    else:
+        print(f"Failed to revoke token: {response.status_code} {response.text}")
+
 
 @router.get("/login")
 async def login(
@@ -38,6 +55,20 @@ async def login(
     return await oauth.authentik.authorize_redirect(
         request, f'{config("APP_URL")}/auth/callback?next={next}'
     )
+    
+@router.get("/logout")
+async def logout(
+    request: Request,
+):
+    # TODO we need to logout with oauth2 here
+    response = RedirectResponse(url='/')
+    # response.set_cookie(
+    #     key="access_token",
+    #     value=None,
+    #     max_age=0,
+    # )
+    # assert request.cookies.get("access_token") is None
+    return response
 
 
 @router.get("/auth/callback")
