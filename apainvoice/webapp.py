@@ -165,7 +165,7 @@ def default_page(
             start_links=[
                 c.Link(
                     components=[c.Text(text="Login")],
-                    on_click=GoToEvent(url="/login"),
+                    on_click=GoToEvent(url="/login?next=/"),
                     # active='startswith:/auth',
                 ),
                 c.Link(
