@@ -1,5 +1,5 @@
 from apainvoice import models, controller, auth
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
@@ -88,34 +88,34 @@ def render_all_invoices(admin: bool) -> list[AnyComponent]:
 
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
-def landing_page() -> list[AnyComponent]:
-    return default_page(render_all_invoices(admin=False))
+def landing_page(request: Request) -> list[AnyComponent]:
+    return default_page(request, render_all_invoices(admin=False))
 
 
 @app.get("/api/admin/console", response_model=FastUI, response_model_exclude_none=True)
-def admin_console() -> list[AnyComponent]:
+def admin_console(request: Request) -> list[AnyComponent]:
     metadata = controller.get_metadata()
     components = [
         c.Heading(text="Admin Console", level=1),
         c.Paragraph(text=f"Data last refreshed: {metadata.last_refresh}"),
         c.Button(text="Refresh Data", on_click=GoToEvent(url="/admin/refreshdata")),
     ]
-    return default_page(components)
+    return default_page(request, components)
 
 
 @app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
-def admin_invoices() -> list[AnyComponent]:
+def admin_invoices(request: Request) -> list[AnyComponent]:
     components = [
         c.Page(components=render_all_invoices(admin=True)),
     ]
-    return default_page(components)
+    return default_page(request, components)
 
 
 @app.get(
     "/api/admin/refreshdata", response_model=FastUI, response_model_exclude_none=True
 )
 async def refresh(
-    form: typing.Annotated[TestFormModel, fastui_form(TestFormModel)]
+    request: Request, form: typing.Annotated[TestFormModel, fastui_form(TestFormModel)]
 ) -> list[AnyComponent]:
     controller.update_invoices()
     metadata = controller.get_metadata()
@@ -125,7 +125,7 @@ async def refresh(
             text="Back to Admin Console", on_click=GoToEvent(url="/admin/console")
         ),
     ]
-    return default_page(components)
+    return default_page(request, components)
 
 
 @app.get(
@@ -155,7 +155,7 @@ async def set_bill_status(invid: int, status: str) -> list[AnyComponent]:
 
 
 def default_page(
-    components: list[AnyComponent], title: str = "APA Invoice"
+    request: Request, components: list[AnyComponent], title: str = "APA Invoice"
 ) -> list[AnyComponent]:
     return [
         c.PageTitle(text=f"{title}"),
@@ -165,13 +165,17 @@ def default_page(
             start_links=[
                 c.Link(
                     components=[c.Text(text="Login")],
-                    on_click=GoToEvent(url="/login?next=/"),
+                    # HACK the url /login alone does not work  because that causes a FastUI fetch
+                    # which tries to load the page contents of /login inline, but because /login causes
+                    # a RedirectResponse we cannot handle an inline load. By sending the full URL
+                    # we circumvent this.
+                    on_click=GoToEvent(url=f"{request.base_url}login"),
                     # active='startswith:/auth',
                 ),
                 c.Link(
                     components=[c.Text(text="Admin Console")],
                     on_click=GoToEvent(url="/admin/console"),
-                    active='/admin/console',
+                    active="/admin/console",
                 ),
                 c.Link(
                     components=[c.Text(text="Logout")],
