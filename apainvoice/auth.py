@@ -1,42 +1,44 @@
-from authlib.integrations.starlette_client import OAuth
-from authlib.jose import jwt, errors
+from apainvoice import default_page
 from fastapi import APIRouter, Request, Query
+from fastui.events import GoToEvent
 from fastapi.responses import RedirectResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from starlette.config import Config
 import logging
 import requests
+from requests_oauthlib import OAuth2Session
+import json
 import typing
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["auth"])
 config = Config(".env")
-oauth = OAuth(config)
 
-oauth.register(
-    access_token_params=None,
-    access_token_url=config("AUTHENTIK_TOKEN_URL"),
-    authorize_params=None,
-    authorize_url=config("AUTHENTIK_AUTHORIZE_URL"),
-    client_id=config("AUTHENTIK_CLIENT_ID"),
-    client_kwargs={"scope": "openid profile email"},
-    client_secret=config("AUTHENTIK_CLIENT_SECRET"),
-    name="authentik",
-    # redirect_uri=config("AUTHENTIK_REDIRECT_URI"),
-    server_metadata_url=config("AUTHENTIK_CONFIG_URL"),
-    userinfo_endpoint=config("AUTHENTIK_USERINFO_URL"),
+OAUTH_CLIENT_ID = config("AUTHENTIK_CLIENT_ID")
+OAUTH_CLIENT_SECRET = config("AUTHENTIK_CLIENT_SECRET")
+OAUTH_URL_AUTHORIZE = config("AUTHENTIK_AUTHORIZE_URL")
+OAUTH_URL_JWKS = config("AUTHENTIK_JWKS_URL")
+OAUTH_URL_REDIRECT = config("AUTHENTIK_REDIRECT_URL")
+OAUTH_URL_REVOKE = config("AUTHENTIK_REVOKE_URL")
+OAUTH_URL_TOKEN = config("AUTHENTIK_TOKEN_URL")
+OAUTH_URL_USERINFO = config("AUTHENTIK_USERINFO_URL")
+OAUTH_SCOPE = "openid profile email"
+
+
+oauth = OAuth2Session(
+    OAUTH_CLIENT_ID, redirect_uri=OAUTH_URL_REDIRECT, scope=OAUTH_SCOPE
 )
-# TODO we shouldn't need to register so much given that we're providing the metadata URL https://docs.authlib.org/en/latest/client/frameworks.html#parsing-id-token
+
 
 def revoke_access_token(access_token):
     revocation_endpoint = config("AUTHENTIK_REVOCATION_URL")
     headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
     }
     data = {
-        'token': access_token,
-        'token_type_hint': 'access_token',  # or 'refresh_token' if you're revoking a refresh token
+        "token": access_token,
+        "token_type_hint": "access_token",  # or 'refresh_token' if you're revoking a refresh token
     }
 
     response = requests.post(revocation_endpoint, headers=headers, data=data)
@@ -52,66 +54,78 @@ async def login(
     request: Request,
     next: str = Query(default="/loggedin", description="Return path after login"),
 ):
-    return await oauth.authentik.authorize_redirect(
-        request, f'{config("APP_URL")}/auth/callback?next={next}'
-    )
-    
-@router.get("/logout")
+    logger.debug(f"Logging in. next={next}")
+    if oauth.authorized:
+        logger.warning("Already authorized user is trying to login again")
+        return RedirectResponse(url=next)
+    else:
+        authorization_url, state = oauth.authorization_url(OAUTH_URL_AUTHORIZE)
+        logger.debug(f"authorization_url={authorization_url}, state={state}")
+        request.session["oauth_state"] = state
+        return RedirectResponse(url=f"{authorization_url}?next={next}")
+        # return RedirectResponse(url="https://www.google.com")
+
+
+@router.get("/api/logout")
 async def logout(
     request: Request,
 ):
-    # TODO we need to logout with oauth2 here
-    response = RedirectResponse(url='/')
-    # response.set_cookie(
-    #     key="access_token",
-    #     value=None,
-    #     max_age=0,
-    # )
-    # assert request.cookies.get("access_token") is None
-    return response
+    raise NotImplementedError
 
 
 @router.get("/auth/callback")
 async def auth_callback(
-    request: Request, next: str = Query(description="Return path after login")
+    request: Request,
+    code: str = Query(),
+    next: str = Query(default="/loggedin", description="Return path after login"),
 ):
-    token = await oauth.authentik.authorize_access_token(request)
-
-    response = RedirectResponse(url=next)
-    response.set_cookie(
-        key="access_token",
-        value=token["access_token"],
-        httponly=True,  # Prevent JavaScript from accessing this cookie
-        secure=True,  # Ensure the cookie is only sent over HTTPS
-        samesite="Lax",  # Lax or Strict for CSRF protection
+    logger.debug(f"auth callback. code={code}, next={next}")
+    token = oauth.fetch_token(
+        OAUTH_URL_TOKEN,
+        authorization_response=str(request.url),
+        client_secret=OAUTH_CLIENT_SECRET,
+        code=code,
     )
-    # TODO what about the expiry of that cookie?
+    assert token
+    logger.debug(f"token={token}")
+    response = RedirectResponse(url=next)
+    # TODO why do we need to set this cookie?
+    # response.set_cookie(
+    #     key="access_token",
+    #     value=token["access_token"],
+    #     httponly=True,
+    #     secure=True,
+    #     samesite="Lax",
+    # )
     return response
 
 
-def get_jwt_claims(request: Request):
-    access_token = request.cookies.get("access_token")
-    # TODO what if there's no access_token at all?
-    jwks = requests.get(config("AUTHENTIK_JWKS_URL")).json()
-
-    try:
-        claims = jwt.decode(access_token, jwks["keys"][0])
-        claims.validate()
-    except errors.ExpiredTokenError as e:
-        logger.debug("JWT has expired")
-        raise e
-    return claims
+def get_userinfo(request: Request) -> dict | None:
+    if oauth.authorized:
+        response = oauth.get(OAUTH_URL_USERINFO)
+        assert response.ok
+        userinfo = json.loads(response.content)
+        return userinfo
+    else:
+        return None
 
 
 @router.get("/api/loggedin", response_model=FastUI, response_model_exclude_none=True)
+# @router.get("/api/loggedin")
 async def logged_in(
     request: Request,
 ) -> list[AnyComponent]:
-    try:
-        claims = get_jwt_claims(request)
-    except errors.ExpiredTokenError as e:
-        return RedirectResponse(url="/login")
+    userinfo = get_userinfo(request)
 
-    return [
-        c.Paragraph(text=f"username: {claims['preferred_username']}"),
-    ]
+    components = None
+    if userinfo:
+        components = [
+            c.Paragraph(text=f"username: {userinfo['preferred_username']}"),
+        ]
+    else:
+        components = [
+            c.Paragraph(text="ERROR - You are not logged in"),
+        ]
+        # return RedirectResponse(url=f"{request.base_url}login?next=/loggedin")
+        # return RedirectResponse(url="https://www.google.com")
+    return default_page.default_page(request, components)

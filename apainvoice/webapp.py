@@ -1,9 +1,9 @@
-from apainvoice import models, controller, auth
+from apainvoice import models, controller, default_page, auth
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
 from fastui.components.display import DisplayLookup
-from fastui.events import GoToEvent, PageEvent
+from fastui.events import GoToEvent
 from fastui.forms import (
     FormFile,
     SelectSearchResponse,
@@ -15,6 +15,8 @@ from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
 import logging
 import typing
+
+from apainvoice.default_page import default_page
 
 logger = logging.getLogger(__name__)
 
@@ -154,57 +156,9 @@ async def set_bill_status(invid: int, status: str) -> list[AnyComponent]:
     return admin_invoices()
 
 
-def default_page(
-    request: Request, components: list[AnyComponent], title: str = "APA Invoice"
-) -> list[AnyComponent]:
-    return [
-        c.PageTitle(text=f"{title}"),
-        c.Navbar(
-            title="Home",
-            title_event=GoToEvent(url="/"),
-            start_links=[
-                c.Link(
-                    components=[c.Text(text="Login")],
-                    # HACK the url /login alone does not work  because that causes a FastUI fetch
-                    # which tries to load the page contents of /login inline, but because /login causes
-                    # a RedirectResponse we cannot handle an inline load. By sending the full URL
-                    # we circumvent this.
-                    on_click=GoToEvent(url=f"{request.base_url}login"),
-                    # active='startswith:/auth',
-                ),
-                c.Link(
-                    components=[c.Text(text="Admin Console")],
-                    on_click=GoToEvent(url="/admin/console"),
-                    active="/admin/console",
-                ),
-                c.Link(
-                    components=[c.Text(text="Logout")],
-                    on_click=GoToEvent(url="/logout"),
-                    # active='startswith:/auth',
-                ),
-            ],
-        ),
-        c.Page(
-            components=components
-            # components=[
-            #     *((c.Heading(text=title),) if title else ()),
-            #     *components,
-            # ],
-        ),
-        c.Footer(
-            extra_text="v0.1",
-            links=[
-                c.Link(
-                    components=[c.Text(text="Github")],
-                    on_click=GoToEvent(url="https://github.com/shahvirb/apainvoice"),
-                ),
-            ],
-        ),
-    ]
-
-
 @app.get("/{path:path}")
 async def default_route() -> HTMLResponse:
+    # This needs to be defined last because it will match all paths
     return HTMLResponse(prebuilt_html(title="APA Invoice"))
 
 
