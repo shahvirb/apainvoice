@@ -4,23 +4,16 @@ from fastui.events import GoToEvent
 
 
 def default_page(
-    request: Request, components: list[AnyComponent], title: str = "APA Invoice"
+    request: Request,
+    components: list[AnyComponent],
+    title: str = "APA Invoice",
+    userinfo: dict | None = None,
 ) -> list[AnyComponent]:
-    return [
-        c.PageTitle(text=f"{title}"),
-        c.Navbar(
-            title="Home",
-            title_event=GoToEvent(url="/"),
-            start_links=[
-                c.Link(
-                    components=[c.Text(text="Login")],
-                    # HACK the url /login alone does not work  because that causes a FastUI fetch
-                    # which tries to load the page contents of /login inline, but because /login causes
-                    # a RedirectResponse we cannot handle an inline load. By sending the full URL
-                    # we circumvent this.
-                    on_click=GoToEvent(url=f"{request.base_url}login"),
-                    # active='startswith:/auth',
-                ),
+
+    navlinks = []
+    if userinfo:
+        navlinks.extend(
+            [
                 c.Link(
                     components=[c.Text(text="Admin Console")],
                     on_click=GoToEvent(url="/admin/console"),
@@ -31,8 +24,26 @@ def default_page(
                     on_click=GoToEvent(url="/logout"),
                     # active='startswith:/auth',
                 ),
-            ],
-        ),
+            ]
+        )
+    else:
+        navlinks.extend(
+            [
+                c.Link(
+                    components=[c.Text(text="Login")],
+                    # HACK the url /login alone does not work  because that causes a FastUI fetch
+                    # which tries to load the page contents of /login inline, but because /login causes
+                    # a RedirectResponse we cannot handle an inline load. By sending the full URL
+                    # we circumvent this.
+                    on_click=GoToEvent(url=f"{request.base_url}login"),
+                    # active='startswith:/auth',
+                ),
+            ]
+        )
+
+    return [
+        c.PageTitle(text=f"{title}"),
+        c.Navbar(title="Home", title_event=GoToEvent(url="/"), start_links=navlinks),
         c.Page(
             components=components
             # components=[

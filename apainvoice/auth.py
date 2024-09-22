@@ -1,4 +1,4 @@
-from apainvoice import default_page
+from apainvoice import default_page, userinfo
 from fastapi import APIRouter, Request, Query
 from fastui.events import GoToEvent
 from fastapi.responses import RedirectResponse
@@ -115,12 +115,12 @@ def get_userinfo(request: Request) -> dict | None:
 async def logged_in(
     request: Request,
 ) -> list[AnyComponent]:
-    userinfo = get_userinfo(request)
+    user = userinfo.get_userinfo(oauth, request=request)
 
     components = None
-    if userinfo:
+    if user:
         components = [
-            c.Paragraph(text=f"username: {userinfo['preferred_username']}"),
+            c.Paragraph(text=f"username: {user['preferred_username']}"),
         ]
     else:
         components = [
@@ -128,4 +128,4 @@ async def logged_in(
         ]
         # return RedirectResponse(url=f"{request.base_url}login?next=/loggedin")
         # return RedirectResponse(url="https://www.google.com")
-    return default_page.default_page(request, components)
+    return default_page.default_page(request, components, userinfo=user)
