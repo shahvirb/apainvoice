@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 config = Config(".env")
 app = FastAPI()
 app.include_router(auth.router)
+# TODO why is this middleware needed? Does requests-oauthlib need this?
 app.add_middleware(SessionMiddleware, secret_key=config("MIDDLEWARE_SECRET"))
 
 
