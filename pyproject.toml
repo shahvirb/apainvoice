@@ -28,3 +28,6 @@ pytest = "^8.3.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+update-invoices = "apainvoice.controller:update_invoices_entrypoint"

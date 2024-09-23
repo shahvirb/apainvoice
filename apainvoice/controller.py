@@ -159,6 +159,6 @@ def write_db(x: models.PlayerBill | models.Invoice) -> bool:
     return False
 
 
-if __name__ == "__main__":
+def update_invoices_entrypoint():
     logging.basicConfig(level=logging.DEBUG)
     update_invoices()
