@@ -63,7 +63,6 @@ async def login(
         logger.debug(f"authorization_url={authorization_url}, state={state}")
         request.session["oauth_state"] = state
         return RedirectResponse(url=f"{authorization_url}?next={next}")
-        # return RedirectResponse(url="https://www.google.com")
 
 
 @router.get("/api/logout")
@@ -89,14 +88,6 @@ async def auth_callback(
     assert token
     logger.debug(f"token={token}")
     response = RedirectResponse(url=next)
-    # TODO why do we need to set this cookie?
-    # response.set_cookie(
-    #     key="access_token",
-    #     value=token["access_token"],
-    #     httponly=True,
-    #     secure=True,
-    #     samesite="Lax",
-    # )
     return response
 
 
@@ -126,6 +117,4 @@ async def logged_in(
         components = [
             c.Paragraph(text="ERROR - You are not logged in"),
         ]
-        # return RedirectResponse(url=f"{request.base_url}login?next=/loggedin")
-        # return RedirectResponse(url="https://www.google.com")
     return default_page.default_page(request, components, oauth2session=oauth)
