@@ -17,6 +17,7 @@ starlette = "^0.38.4"
 rich = "^13.8.0"
 pyyaml = "^6.0.2"
 requests-oauthlib = "^2.0.0"
+itsdangerous = "^2.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
