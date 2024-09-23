@@ -1,4 +1,5 @@
-from apainvoice import models, controller, default_page, auth
+from apainvoice import models, controller, auth, userinfo
+from apainvoice.default_page import default_page
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastui import FastUI, AnyComponent, prebuilt_html, components as c
@@ -15,8 +16,6 @@ from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
 import logging
 import typing
-
-from apainvoice.default_page import default_page
 
 logger = logging.getLogger(__name__)
 
@@ -92,26 +91,29 @@ def render_all_invoices(admin: bool) -> list[AnyComponent]:
 
 @app.get("/api/", response_model=FastUI, response_model_exclude_none=True)
 def landing_page(request: Request) -> list[AnyComponent]:
-    return default_page(request, render_all_invoices(admin=False))
+    return default_page(request, render_all_invoices(admin=False), oauth2session=auth.oauth)
 
 
 @app.get("/api/admin/console", response_model=FastUI, response_model_exclude_none=True)
 def admin_console(request: Request) -> list[AnyComponent]:
-    metadata = controller.get_metadata()
-    components = [
-        c.Heading(text="Admin Console", level=1),
-        c.Paragraph(text=f"Data last refreshed: {metadata.last_refresh}"),
-        c.Button(text="Refresh Data", on_click=GoToEvent(url="/admin/refreshdata")),
-    ]
-    return default_page(request, components)
+    if userinfo.get_userinfo(auth.oauth, request=request):
+        metadata = controller.get_metadata()
+        components = [
+            c.Heading(text="Admin Console", level=1),
+            c.Paragraph(text=f"Data last refreshed: {metadata.last_refresh}"),
+            c.Button(text="Refresh Data", on_click=GoToEvent(url="/admin/refreshdata")),
+        ]
+        return default_page(request, components, oauth2session=auth.oauth)
+    
 
 
 @app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
 def admin_invoices(request: Request) -> list[AnyComponent]:
-    components = [
-        c.Page(components=render_all_invoices(admin=True)),
-    ]
-    return default_page(request, components)
+    if userinfo.get_userinfo(auth.oauth, request=request):
+        components = [
+            c.Page(components=render_all_invoices(admin=True)),
+        ]
+        return default_page(request, components, oauth2session=auth.oauth)
 
 
 @app.get(
@@ -120,15 +122,16 @@ def admin_invoices(request: Request) -> list[AnyComponent]:
 async def refresh(
     request: Request, form: typing.Annotated[TestFormModel, fastui_form(TestFormModel)]
 ) -> list[AnyComponent]:
-    controller.update_invoices()
-    metadata = controller.get_metadata()
-    components = [
-        c.Paragraph(text=f"Refresh complete: {metadata.last_refresh}"),
-        c.Button(
-            text="Back to Admin Console", on_click=GoToEvent(url="/admin/console")
-        ),
-    ]
-    return default_page(request, components)
+    if userinfo.get_userinfo(auth.oauth, request=request):
+        controller.update_invoices()
+        metadata = controller.get_metadata()
+        components = [
+            c.Paragraph(text=f"Refresh complete: {metadata.last_refresh}"),
+            c.Button(
+                text="Back to Admin Console", on_click=GoToEvent(url="/admin/console")
+            ),
+        ]
+        return default_page(request, components, oauth2session=auth.oauth)
 
 
 @app.get(
@@ -137,6 +140,7 @@ async def refresh(
     response_model_exclude_none=True,
 )
 async def set_bill_status(billid: int, status: str) -> list[AnyComponent]:
+    # TODO these functions need to be protected right? Should anyone be able to call these entrypoints?
     player_bill = controller.get_bill(billid)
     player_bill.status = status if status != "reset" else ""
     controller.write_db(player_bill)
@@ -149,6 +153,7 @@ async def set_bill_status(billid: int, status: str) -> list[AnyComponent]:
     response_model_exclude_none=True,
 )
 async def set_bill_status(invid: int, status: str) -> list[AnyComponent]:
+    # TODO these functions need to be protected right? Should anyone be able to call these entrypoints?
     invoice = controller.get_invoice(invid)
     for bill in invoice.bills:
         bill.status = status if status != "reset" else ""

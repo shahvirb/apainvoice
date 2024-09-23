@@ -128,4 +128,4 @@ async def logged_in(
         ]
         # return RedirectResponse(url=f"{request.base_url}login?next=/loggedin")
         # return RedirectResponse(url="https://www.google.com")
-    return default_page.default_page(request, components, userinfo=user)
+    return default_page.default_page(request, components, oauth2session=oauth)

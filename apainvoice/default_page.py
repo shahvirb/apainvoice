@@ -1,17 +1,19 @@
+from apainvoice import userinfo
 from fastapi import Request
 from fastui import AnyComponent, components as c
 from fastui.events import GoToEvent
-
+from requests_oauthlib import OAuth2Session
 
 def default_page(
     request: Request,
     components: list[AnyComponent],
     title: str = "APA Invoice",
-    userinfo: dict | None = None,
+    oauth2session: OAuth2Session | None = None
 ) -> list[AnyComponent]:
 
     navlinks = []
-    if userinfo:
+    user = userinfo.get_userinfo(oauth2session, request=request) if oauth2session else None
+    if user:
         navlinks.extend(
             [
                 c.Link(
