@@ -1,26 +1,11 @@
 from apainvoice import db, ppapi, models
 import logging
 import sqlmodel
-import base64
 import datetime
 
+from apainvoice.players import player_names
+
 logger = logging.getLogger(__name__)
-
-# Obfucsate player names for basic privacy in public code repos
-B64_PLAYERS = [
-    "TWFkaGF2IFNoYXJtYQ==",  # Ma Sh
-    "U3RlcGhhbmllIFBhcGFnZW9yZ2U=",  # St Pa
-    "U2Fta2l0IFNoYWg=",  # Sa Sh
-    "RGlvbiBLaW5n",  # Di Ki
-    "QWxiZXJ0byBDYWxkZXJvbg==",  # Al Ca
-    "Sm9lIEZsb3Jlcw==",  # Jo Fl
-    "U2hhaHZpciBCdWhhcml3YWxsYQ==",  # Sh Bu
-    "UGF1bCBTaGVsdG9u",  # Pa Sh
-]
-
-
-def player_names(names: list[str] = B64_PLAYERS) -> list[str]:
-    return [base64.b64decode(encoded_name.encode()).decode() for encoded_name in names]
 
 
 def make_invoice(
