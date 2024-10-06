@@ -142,8 +142,3 @@ def write_db(x: models.PlayerBill | models.Invoice) -> bool:
         session.commit()
         return True
     return False
-
-
-def update_invoices_entrypoint():
-    logging.basicConfig(level=logging.DEBUG)
-    update_invoices()
