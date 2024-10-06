@@ -2,6 +2,7 @@ from apainvoice import db, ppapi, models
 import logging
 import sqlmodel
 import datetime
+import typing
 
 from apainvoice.players import player_names
 
@@ -60,8 +61,32 @@ def make_invoice(
     return invoice
 
 
+def fetch_completed_matches()-> typing.Tuple[list[models.Match], str]:
+    """_summary_
+
+    Returns:
+        typing.Tuple[list[models.Match], str]:
+            first value is a list of completed matches
+            next value is the session name
+    """
+    api = ppapi.PoolPlayersAPI()
+    #TODO there is too much knowledge needed here for working with match_response. This should be abstracted.
+    match_response = models.MatchesResponse.model_validate(api.get_matches())
+    
+    #TODO we should now process rsm and write into the db the next upcoming match
+    session_name = match_response.root[0].data.viewer.teams[0].session.name
+    completed_matches = match_response.completed_matches()
+    logger.info(
+        f"Found {len(completed_matches)} completed matches in {session_name} session"
+    )
+    
+    with sqlmodel.Session(db.create_engine()) as session:
+        pass
+    
+    return completed_matches, session_name
+
 def all_invoices(api: ppapi.PoolPlayersAPI, session):
-    completed, session_name = api.fetch_completed_matches()
+    completed, session_name = fetch_completed_matches()
     matches_date_list = models.matches_date_list(completed)
     for mdl in matches_date_list:
         results = (

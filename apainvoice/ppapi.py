@@ -93,6 +93,15 @@ class PoolPlayersAPI:
         answer = self.post_auth_data(data)
         return answer
 
+    def fetch_matches(self) -> list[models.Match]:
+        matches = self.get_matches()
+        mr = models.MatchesResponse.model_validate(matches)
+        session_name = mr.root[0].data.viewer.teams[0].session.name
+        matches = list(mr.matches())
+        logger.info(f"Found {len(matches)} matches")
+        return matches
+
+
     def fetch_completed_matches(self) -> typing.Tuple[list[models.Match], str]:
         """_summary_
 
@@ -109,3 +118,4 @@ class PoolPlayersAPI:
             f"Found {len(completed_matches)} completed matches in {session_name} session"
         )
         return completed_matches, session_name
+        #TODO is this function even used anymore?
