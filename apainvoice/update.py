@@ -1,4 +1,4 @@
-from apainvoice.controller import update_invoices
+from apainvoice import controller
 import logging
 
 logger = logging.getLogger(__name__)
@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
-    update_invoices()
+    controller.update_invoices()
 
 
 if __name__ == "__main__":
