@@ -1,0 +1,3 @@
+PYTHONPATH=/:
+
+19 */3 * * * cd /apainvoice && /opt/pysetup/.venv/bin/python -m update >> /var/log/update.log 2>&1

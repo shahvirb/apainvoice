@@ -70,11 +70,25 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # quicker install AS runtime deps are already installed
 RUN poetry install
 
+# Install cron
+RUN apt-get update && apt-get install -y cron && apt-get clean
+# Add crontab file to the cron directory
+COPY crontab /etc/cron.d/crontab
+# Give execution rights on the cron job
+RUN chmod 0644 /etc/cron.d/crontab
+# Apply cron job
+RUN crontab /etc/cron.d/crontab
+
+RUN touch /var/log/update.log
+
+# Copy the entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 WORKDIR /apainvoice
 
 EXPOSE 8000
-CMD ["uvicorn", "--reload", "webapp:app", "--host", "0.0.0.0"]
-
+CMD ["/entrypoint.sh"]
 
 # `production` image used for runtime
 # FROM python-base AS production
