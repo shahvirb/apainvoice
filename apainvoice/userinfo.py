@@ -3,6 +3,7 @@ from requests_oauthlib import OAuth2Session
 from starlette.config import Config
 import json
 
+
 def get_userinfo(oauth: OAuth2Session, request: Request) -> dict | None:
     if oauth.authorized:
         config = Config(".env")
