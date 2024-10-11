@@ -1,16 +1,12 @@
-from apainvoice import controller
+from apainvoice import controller, logconf
 import logging
 import logging.config
-import yaml
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    with open("log_conf.yaml", "r") as stream:
-        config = yaml.load(stream, Loader=yaml.FullLoader)
-    logging.config.dictConfig(config)
-
+    logging.config.dictConfig(logconf.get_config_dict())
     controller.update_invoices()
 
 

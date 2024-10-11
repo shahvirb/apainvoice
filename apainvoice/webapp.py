@@ -1,4 +1,4 @@
-from apainvoice import models, controller, auth, userinfo
+from apainvoice import models, controller, auth, userinfo, logconf
 from apainvoice.default_page import default_page
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -104,7 +104,6 @@ def admin_console(request: Request) -> list[AnyComponent]:
             c.Button(text="Refresh Data", on_click=GoToEvent(url="/admin/refreshdata")),
         ]
         return default_page(request, components, oauth2session=auth.oauth)
-    
 
 
 @app.get("/api/admin/invoices", response_model=FastUI, response_model_exclude_none=True)
@@ -173,7 +172,7 @@ if __name__ == "__main__":
 
     uvicorn.run(
         "webapp:app",
-        log_config="log_conf.yaml",
+        log_config=str(logconf.get_config_path()),
         host="192.168.1.38",
         port=8000,
         reload=True,
