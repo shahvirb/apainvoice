@@ -18,6 +18,8 @@ rich = "^13.8.0"
 pyyaml = "^6.0.2"
 requests-oauthlib = "^2.0.0"
 itsdangerous = "^2.2.0"
+# TODO the pydantic version needs to be unpinned from 2.9 once https://github.com/pydantic/FastUI/issues/369 is fixed
+pydantic = "2.9.*"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
