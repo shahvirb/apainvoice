@@ -27,6 +27,8 @@ gunicorn = "^23.0.0"
 mypy = "^1.11.1"
 uvicorn = "^0.30.5"
 pytest = "^8.3.2"
+poetry = "^2.0.1"
+up = "^0.2.1"
 
 [build-system]
 requires = ["poetry-core"]
